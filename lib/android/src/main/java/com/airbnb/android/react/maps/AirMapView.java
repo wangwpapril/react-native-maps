@@ -43,6 +43,7 @@ import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.Polygon;
 import com.google.android.gms.maps.model.Polyline;
+import com.google.android.gms.maps.model.TileOverlay;
 import com.google.android.gms.maps.model.VisibleRegion;
 
 import java.util.ArrayList;
@@ -79,6 +80,7 @@ public class AirMapView extends MapView implements GoogleMap.InfoWindowAdapter,
     private final Map<Marker, AirMapMarker> markerMap = new HashMap<>();
     private final Map<Polyline, AirMapPolyline> polylineMap = new HashMap<>();
     private final Map<Polygon, AirMapPolygon> polygonMap = new HashMap<>();
+    private final Map<TileOverlay, AirMapHeatmap> heatmapMap = new HashMap<>();
     private final ScaleGestureDetector scaleDetector;
     private final GestureDetectorCompat gestureDetector;
     private final AirMapManager manager;
@@ -488,6 +490,12 @@ public class AirMapView extends MapView implements GoogleMap.InfoWindowAdapter,
             AirMapUrlTile urlTileView = (AirMapUrlTile) child;
             urlTileView.addToMap(map);
             features.add(index, urlTileView);
+        } else if (child instanceof AirMapHeatmap) {
+            AirMapHeatmap heatmapView = (AirMapHeatmap) child;
+            heatmapView.addToMap(map);
+            features.add(index, heatmapView);
+            TileOverlay heatmap = (TileOverlay)heatmapView.getFeature();
+            heatmapMap.put(heatmap, heatmapView);
         } else {
             ViewGroup children = (ViewGroup) child;
             for (int i = 0; i < children.getChildCount(); i++) {
