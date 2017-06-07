@@ -1,6 +1,7 @@
 package com.airbnb.android.react.maps;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.facebook.react.bridge.ReadableArray;
 import com.facebook.react.bridge.ReadableMap;
@@ -16,8 +17,8 @@ import java.util.List;
 
 public class AirMapHeatmap extends AirMapFeature {
 
-    private TileOverlayOptions heatmapOptions;
-    private TileOverlay heatmap;
+    private TileOverlayOptions tileOverlayOptions;
+    private TileOverlay tileOverlay;
     private HeatmapTileProvider heatmapTileProvider;
     private List<WeightedLatLng> points;
 
@@ -38,42 +39,47 @@ public class AirMapHeatmap extends AirMapFeature {
             }
             this.points.add(i, weightedLatLng);
         }
-        if (heatmapTileProvider != null) {
+        if (heatmapTileProvider != null && !this.points.isEmpty()) {
             heatmapTileProvider.setWeightedData(this.points);
         }
-        if (heatmap != null) {
-            heatmap.clearTileCache();
+        if (tileOverlay != null) {
+            tileOverlay.clearTileCache();
         }
     }
 
-    public TileOverlayOptions getHeatmapOptions() {
-        if (heatmapOptions == null) {
-            heatmapOptions = createHeatmapOptions();
+    public TileOverlayOptions getTileOverlayOptions() {
+        if (tileOverlayOptions == null) {
+            tileOverlayOptions = createHeatmapOptions();
         }
-        return heatmapOptions;
+        return tileOverlayOptions;
     }
 
     private TileOverlayOptions createHeatmapOptions() {
         TileOverlayOptions options = new TileOverlayOptions();
-        if (heatmapTileProvider == null) {
+        if (heatmapTileProvider == null && this.points != null && !this.points.isEmpty()) {
             heatmapTileProvider = new HeatmapTileProvider.Builder().weightedData(this.points).build();
         }
+        // include other options to the heatmap here, for example radius, colours based on the points!
         options.tileProvider(heatmapTileProvider);
         return options;
     }
 
     @Override
     public void addToMap(GoogleMap map) {
-        heatmap = map.addTileOverlay(getHeatmapOptions());
+        if(this.points != null && !this.points.isEmpty()){
+            tileOverlay = map.addTileOverlay(getTileOverlayOptions());
+        }
     }
 
     @Override
     public void removeFromMap(GoogleMap map) {
-        heatmap.remove();
+        if(tileOverlay != null){
+            tileOverlay.remove();
+        }
     }
 
     @Override
     public Object getFeature() {
-        return heatmap;
+        return tileOverlay;
     }
 }
