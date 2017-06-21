@@ -22,9 +22,31 @@
 		1125B2E61C4AD3DA007D0023 /* AIRMapPolylineManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1125B2D61C4AD3DA007D0023 /* AIRMapPolylineManager.m */; };
 		1125B2F21C4AD445007D0023 /* SMCalloutView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1125B2F11C4AD445007D0023 /* SMCalloutView.m */; };
 		19DABC7F1E7C9D3C00F41150 /* RCTConvert+AirMap.m in Sources */ = {isa = PBXBuildFile; fileRef = 19DABC7E1E7C9D3C00F41150 /* RCTConvert+AirMap.m */; };
+		84D782761EFADB670071E636 /* AIRMapHeatmap.m in Sources */ = {isa = PBXBuildFile; fileRef = 84D782751EFADB670071E636 /* AIRMapHeatmap.m */; };
+		84D7829F1EFADEB00071E636 /* DTMColorProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 84D7827B1EFADEAF0071E636 /* DTMColorProvider.m */; };
+		84D782A01EFADEB00071E636 /* DTMDiffColorProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 84D7827D1EFADEAF0071E636 /* DTMDiffColorProvider.m */; };
+		84D782A11EFADEB00071E636 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 84D782821EFADEB00071E636 /* AppDelegate.m */; };
+		84D782A21EFADEB00071E636 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 84D782901EFADEB00071E636 /* main.m */; };
+		84D782A31EFADEB00071E636 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84D782921EFADEB00071E636 /* ViewController.m */; };
+		84D782A41EFADEB00071E636 /* DTMHeatmapRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = 84D782971EFADEB00071E636 /* DTMHeatmapRenderer.m */; };
+		84D782A51EFADEB00071E636 /* DTMDiffHeatmap.m in Sources */ = {isa = PBXBuildFile; fileRef = 84D7829A1EFADEB00071E636 /* DTMDiffHeatmap.m */; };
+		84D782A61EFADEB00071E636 /* DTMHeatmap.m in Sources */ = {isa = PBXBuildFile; fileRef = 84D7829C1EFADEB00071E636 /* DTMHeatmap.m */; };
+		84D782A71EFADEB00071E636 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 84D7829E1EFADEB00071E636 /* README.md */; };
+		84D782AC1EFADFF40071E636 /* AIRMapHeatmapManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 84D782AB1EFADFF40071E636 /* AIRMapHeatmapManager.m */; };
+		84D782AF1EFAE1360071E636 /* AIRMapWeightedPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = 84D782AE1EFAE1360071E636 /* AIRMapWeightedPoint.m */; };
 		DA6C26381C9E2AFE0035349F /* AIRMapUrlTile.m in Sources */ = {isa = PBXBuildFile; fileRef = DA6C26371C9E2AFE0035349F /* AIRMapUrlTile.m */; };
 		DA6C263E1C9E324A0035349F /* AIRMapUrlTileManager.m in Sources */ = {isa = PBXBuildFile; fileRef = DA6C263D1C9E324A0035349F /* AIRMapUrlTileManager.m */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		84D782A91EFADEB00071E636 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 84D782931EFADEB00071E636 /* DTMHeatmapExample.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = EDAC951C1A5DC8FE00E8403E;
+			remoteInfo = DTMHeatmapExample;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		11FA5C4F1C4A1296003AC2EE /* CopyFiles */ = {
@@ -70,6 +92,42 @@
 		11FA5C511C4A1296003AC2EE /* libAirMaps.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libAirMaps.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		19DABC7D1E7C9D3C00F41150 /* RCTConvert+AirMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RCTConvert+AirMap.h"; sourceTree = "<group>"; };
 		19DABC7E1E7C9D3C00F41150 /* RCTConvert+AirMap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "RCTConvert+AirMap.m"; sourceTree = "<group>"; };
+		84D782741EFAD0FC0071E636 /* AIRMapHeatmap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AIRMapHeatmap.h; sourceTree = "<group>"; };
+		84D782751EFADB670071E636 /* AIRMapHeatmap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AIRMapHeatmap.m; sourceTree = "<group>"; };
+		84D782781EFADEAF0071E636 /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		84D7827A1EFADEAF0071E636 /* DTMColorProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTMColorProvider.h; sourceTree = "<group>"; };
+		84D7827B1EFADEAF0071E636 /* DTMColorProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DTMColorProvider.m; sourceTree = "<group>"; };
+		84D7827C1EFADEAF0071E636 /* DTMDiffColorProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTMDiffColorProvider.h; sourceTree = "<group>"; };
+		84D7827D1EFADEAF0071E636 /* DTMDiffColorProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DTMDiffColorProvider.m; sourceTree = "<group>"; };
+		84D7827E1EFADEAF0071E636 /* ColorTester.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = ColorTester.playground; sourceTree = "<group>"; };
+		84D7827F1EFADEB00071E636 /* DTMHeatmap.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = DTMHeatmap.podspec; sourceTree = "<group>"; };
+		84D782811EFADEB00071E636 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		84D782821EFADEB00071E636 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		84D782841EFADEB00071E636 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
+		84D782861EFADEB00071E636 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		84D782881EFADEB00071E636 /* first_week.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = first_week.txt; sourceTree = "<group>"; };
+		84D782891EFADEB00071E636 /* mcdonalds.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = mcdonalds.txt; sourceTree = "<group>"; };
+		84D7828A1EFADEB00071E636 /* third_week.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = third_week.txt; sourceTree = "<group>"; };
+		84D7828C1EFADEB00071E636 /* diff-heatmap.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "diff-heatmap.gif"; sourceTree = "<group>"; };
+		84D7828D1EFADEB00071E636 /* std-heatmap.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "std-heatmap.gif"; sourceTree = "<group>"; };
+		84D7828E1EFADEB00071E636 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		84D7828F1EFADEB00071E636 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		84D782901EFADEB00071E636 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		84D782911EFADEB00071E636 /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		84D782921EFADEB00071E636 /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		84D782931EFADEB00071E636 /* DTMHeatmapExample.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = DTMHeatmapExample.xcodeproj; sourceTree = "<group>"; };
+		84D782961EFADEB00071E636 /* DTMHeatmapRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTMHeatmapRenderer.h; sourceTree = "<group>"; };
+		84D782971EFADEB00071E636 /* DTMHeatmapRenderer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DTMHeatmapRenderer.m; sourceTree = "<group>"; };
+		84D782991EFADEB00071E636 /* DTMDiffHeatmap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTMDiffHeatmap.h; sourceTree = "<group>"; };
+		84D7829A1EFADEB00071E636 /* DTMDiffHeatmap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DTMDiffHeatmap.m; sourceTree = "<group>"; };
+		84D7829B1EFADEB00071E636 /* DTMHeatmap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTMHeatmap.h; sourceTree = "<group>"; };
+		84D7829C1EFADEB00071E636 /* DTMHeatmap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DTMHeatmap.m; sourceTree = "<group>"; };
+		84D7829D1EFADEB00071E636 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		84D7829E1EFADEB00071E636 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		84D782AB1EFADFF40071E636 /* AIRMapHeatmapManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AIRMapHeatmapManager.m; sourceTree = "<group>"; };
+		84D782AD1EFAE0040071E636 /* AIRMapHeatmapManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AIRMapHeatmapManager.h; sourceTree = "<group>"; };
+		84D782AE1EFAE1360071E636 /* AIRMapWeightedPoint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AIRMapWeightedPoint.m; sourceTree = "<group>"; };
+		84D782B01EFAE1490071E636 /* AIRMapWeightedPoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AIRMapWeightedPoint.h; sourceTree = "<group>"; };
 		DA6C26361C9E2AFE0035349F /* AIRMapUrlTile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AIRMapUrlTile.h; sourceTree = "<group>"; };
 		DA6C26371C9E2AFE0035349F /* AIRMapUrlTile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AIRMapUrlTile.m; sourceTree = "<group>"; };
 		DA6C263C1C9E324A0035349F /* AIRMapUrlTileManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AIRMapUrlTileManager.h; sourceTree = "<group>"; };
@@ -106,6 +164,7 @@
 		11FA5C531C4A1296003AC2EE /* AirMaps */ = {
 			isa = PBXGroup;
 			children = (
+				84D782771EFADEAF0071E636 /* DTMHeatmap */,
 				1125B2BD1C4AD3DA007D0023 /* AIRMap.h */,
 				1125B2BE1C4AD3DA007D0023 /* AIRMap.m */,
 				1125B2BF1C4AD3DA007D0023 /* AIRMapCallout.h */,
@@ -140,8 +199,99 @@
 				DA6C26371C9E2AFE0035349F /* AIRMapUrlTile.m */,
 				DA6C263C1C9E324A0035349F /* AIRMapUrlTileManager.h */,
 				DA6C263D1C9E324A0035349F /* AIRMapUrlTileManager.m */,
+				84D782741EFAD0FC0071E636 /* AIRMapHeatmap.h */,
+				84D782751EFADB670071E636 /* AIRMapHeatmap.m */,
+				84D782AB1EFADFF40071E636 /* AIRMapHeatmapManager.m */,
+				84D782AD1EFAE0040071E636 /* AIRMapHeatmapManager.h */,
+				84D782AE1EFAE1360071E636 /* AIRMapWeightedPoint.m */,
+				84D782B01EFAE1490071E636 /* AIRMapWeightedPoint.h */,
 			);
 			path = AirMaps;
+			sourceTree = "<group>";
+		};
+		84D782771EFADEAF0071E636 /* DTMHeatmap */ = {
+			isa = PBXGroup;
+			children = (
+				84D782781EFADEAF0071E636 /* .gitignore */,
+				84D782791EFADEAF0071E636 /* Color Providers */,
+				84D7827E1EFADEAF0071E636 /* ColorTester.playground */,
+				84D7827F1EFADEB00071E636 /* DTMHeatmap.podspec */,
+				84D782801EFADEB00071E636 /* DTMHeatmapExample */,
+				84D782931EFADEB00071E636 /* DTMHeatmapExample.xcodeproj */,
+				84D782961EFADEB00071E636 /* DTMHeatmapRenderer.h */,
+				84D782971EFADEB00071E636 /* DTMHeatmapRenderer.m */,
+				84D782981EFADEB00071E636 /* Heatmaps */,
+				84D7829D1EFADEB00071E636 /* LICENSE */,
+				84D7829E1EFADEB00071E636 /* README.md */,
+			);
+			path = DTMHeatmap;
+			sourceTree = "<group>";
+		};
+		84D782791EFADEAF0071E636 /* Color Providers */ = {
+			isa = PBXGroup;
+			children = (
+				84D7827A1EFADEAF0071E636 /* DTMColorProvider.h */,
+				84D7827B1EFADEAF0071E636 /* DTMColorProvider.m */,
+				84D7827C1EFADEAF0071E636 /* DTMDiffColorProvider.h */,
+				84D7827D1EFADEAF0071E636 /* DTMDiffColorProvider.m */,
+			);
+			path = "Color Providers";
+			sourceTree = "<group>";
+		};
+		84D782801EFADEB00071E636 /* DTMHeatmapExample */ = {
+			isa = PBXGroup;
+			children = (
+				84D782811EFADEB00071E636 /* AppDelegate.h */,
+				84D782821EFADEB00071E636 /* AppDelegate.m */,
+				84D782831EFADEB00071E636 /* LaunchScreen.xib */,
+				84D782851EFADEB00071E636 /* Main.storyboard */,
+				84D782871EFADEB00071E636 /* Data */,
+				84D7828B1EFADEB00071E636 /* Images */,
+				84D7828E1EFADEB00071E636 /* Images.xcassets */,
+				84D7828F1EFADEB00071E636 /* Info.plist */,
+				84D782901EFADEB00071E636 /* main.m */,
+				84D782911EFADEB00071E636 /* ViewController.h */,
+				84D782921EFADEB00071E636 /* ViewController.m */,
+			);
+			path = DTMHeatmapExample;
+			sourceTree = "<group>";
+		};
+		84D782871EFADEB00071E636 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				84D782881EFADEB00071E636 /* first_week.txt */,
+				84D782891EFADEB00071E636 /* mcdonalds.txt */,
+				84D7828A1EFADEB00071E636 /* third_week.txt */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		84D7828B1EFADEB00071E636 /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				84D7828C1EFADEB00071E636 /* diff-heatmap.gif */,
+				84D7828D1EFADEB00071E636 /* std-heatmap.gif */,
+			);
+			path = Images;
+			sourceTree = "<group>";
+		};
+		84D782941EFADEB00071E636 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				84D782AA1EFADEB00071E636 /* DTMHeatmapExample.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		84D782981EFADEB00071E636 /* Heatmaps */ = {
+			isa = PBXGroup;
+			children = (
+				84D782991EFADEB00071E636 /* DTMDiffHeatmap.h */,
+				84D7829A1EFADEB00071E636 /* DTMDiffHeatmap.m */,
+				84D7829B1EFADEB00071E636 /* DTMHeatmap.h */,
+				84D7829C1EFADEB00071E636 /* DTMHeatmap.m */,
+			);
+			path = Heatmaps;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -184,10 +334,17 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				Base,
 			);
 			mainGroup = 11FA5C481C4A1296003AC2EE;
 			productRefGroup = 11FA5C521C4A1296003AC2EE /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 84D782941EFADEB00071E636 /* Products */;
+					ProjectRef = 84D782931EFADEB00071E636 /* DTMHeatmapExample.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				11FA5C501C4A1296003AC2EE /* AirMaps */,
@@ -195,32 +352,73 @@
 		};
 /* End PBXProject section */
 
+/* Begin PBXReferenceProxy section */
+		84D782AA1EFADEB00071E636 /* DTMHeatmapExample.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = DTMHeatmapExample.app;
+			remoteRef = 84D782A91EFADEB00071E636 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
+
 /* Begin PBXSourcesBuildPhase section */
 		11FA5C4D1C4A1296003AC2EE /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				84D782761EFADB670071E636 /* AIRMapHeatmap.m in Sources */,
 				1125B2E31C4AD3DA007D0023 /* AIRMapPolygon.m in Sources */,
+				84D782AC1EFADFF40071E636 /* AIRMapHeatmapManager.m in Sources */,
 				1125B2E41C4AD3DA007D0023 /* AIRMapPolygonManager.m in Sources */,
+				84D782A41EFADEB00071E636 /* DTMHeatmapRenderer.m in Sources */,
 				1125B2DB1C4AD3DA007D0023 /* AIRMapCallout.m in Sources */,
+				84D782A51EFADEB00071E636 /* DTMDiffHeatmap.m in Sources */,
 				1125B2E01C4AD3DA007D0023 /* AIRMapManager.m in Sources */,
+				84D782AF1EFAE1360071E636 /* AIRMapWeightedPoint.m in Sources */,
 				1125B2E61C4AD3DA007D0023 /* AIRMapPolylineManager.m in Sources */,
 				1125B2DD1C4AD3DA007D0023 /* AIRMapCircle.m in Sources */,
 				19DABC7F1E7C9D3C00F41150 /* RCTConvert+AirMap.m in Sources */,
+				84D7829F1EFADEB00071E636 /* DTMColorProvider.m in Sources */,
 				1125B2E51C4AD3DA007D0023 /* AIRMapPolyline.m in Sources */,
 				DA6C263E1C9E324A0035349F /* AIRMapUrlTileManager.m in Sources */,
 				1125B2DA1C4AD3DA007D0023 /* AIRMap.m in Sources */,
 				1125B2DF1C4AD3DA007D0023 /* AIRMapCoordinate.m in Sources */,
+				84D782A71EFADEB00071E636 /* README.md in Sources */,
 				1125B2F21C4AD445007D0023 /* SMCalloutView.m in Sources */,
 				1125B2E11C4AD3DA007D0023 /* AIRMapMarker.m in Sources */,
 				1125B2E21C4AD3DA007D0023 /* AIRMapMarkerManager.m in Sources */,
 				DA6C26381C9E2AFE0035349F /* AIRMapUrlTile.m in Sources */,
+				84D782A01EFADEB00071E636 /* DTMDiffColorProvider.m in Sources */,
 				1125B2DE1C4AD3DA007D0023 /* AIRMapCircleManager.m in Sources */,
 				1125B2DC1C4AD3DA007D0023 /* AIRMapCalloutManager.m in Sources */,
+				84D782A61EFADEB00071E636 /* DTMHeatmap.m in Sources */,
+				84D782A31EFADEB00071E636 /* ViewController.m in Sources */,
+				84D782A21EFADEB00071E636 /* main.m in Sources */,
+				84D782A11EFADEB00071E636 /* AppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		84D782831EFADEB00071E636 /* LaunchScreen.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				84D782841EFADEB00071E636 /* Base */,
+			);
+			name = LaunchScreen.xib;
+			sourceTree = "<group>";
+		};
+		84D782851EFADEB00071E636 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				84D782861EFADEB00071E636 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		11FA5C581C4A1296003AC2EE /* Debug */ = {
