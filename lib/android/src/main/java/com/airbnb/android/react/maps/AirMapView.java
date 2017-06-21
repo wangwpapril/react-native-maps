@@ -42,6 +42,7 @@ import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.Polygon;
 import com.google.android.gms.maps.model.Polyline;
+import com.google.android.gms.maps.model.TileOverlay;
 import com.google.android.gms.maps.model.VisibleRegion;
 
 import java.util.ArrayList;
@@ -74,18 +75,19 @@ public class AirMapView extends MapView implements GoogleMap.InfoWindowAdapter,
   private static final String[] PERMISSIONS = new String[]{
       "android.permission.ACCESS_FINE_LOCATION", "android.permission.ACCESS_COARSE_LOCATION"};
 
-  private final List<AirMapFeature> features = new ArrayList<>();
-  private final Map<Marker, AirMapMarker> markerMap = new HashMap<>();
-  private final Map<Polyline, AirMapPolyline> polylineMap = new HashMap<>();
-  private final Map<Polygon, AirMapPolygon> polygonMap = new HashMap<>();
-  private final ScaleGestureDetector scaleDetector;
-  private final GestureDetectorCompat gestureDetector;
-  private final AirMapManager manager;
-  private LifecycleEventListener lifecycleListener;
-  private boolean paused = false;
-  private boolean destroyed = false;
-  private final ThemedReactContext context;
-  private final EventDispatcher eventDispatcher;
+    private final List<AirMapFeature> features = new ArrayList<>();
+    private final Map<Marker, AirMapMarker> markerMap = new HashMap<>();
+    private final Map<Polyline, AirMapPolyline> polylineMap = new HashMap<>();
+    private final Map<Polygon, AirMapPolygon> polygonMap = new HashMap<>();
+    private final Map<TileOverlay, AirMapHeatmap> heatmapMap = new HashMap<>();
+    private final ScaleGestureDetector scaleDetector;
+    private final GestureDetectorCompat gestureDetector;
+    private final AirMapManager manager;
+    private LifecycleEventListener lifecycleListener;
+    private boolean paused = false;
+    private boolean destroyed = false;
+    private final ThemedReactContext context;
+    private final EventDispatcher eventDispatcher;
 
   private static boolean contextHasBug(Context context) {
     return context == null ||
@@ -462,42 +464,48 @@ public class AirMapView extends MapView implements GoogleMap.InfoWindowAdapter,
     this.handlePanDrag = handlePanDrag;
   }
 
-  public void addFeature(View child, int index) {
-    // Our desired API is to pass up annotations/overlays as children to the mapview component.
-    // This is where we intercept them and do the appropriate underlying mapview action.
-    if (child instanceof AirMapMarker) {
-      AirMapMarker annotation = (AirMapMarker) child;
-      annotation.addToMap(map);
-      features.add(index, annotation);
-      Marker marker = (Marker) annotation.getFeature();
-      markerMap.put(marker, annotation);
-    } else if (child instanceof AirMapPolyline) {
-      AirMapPolyline polylineView = (AirMapPolyline) child;
-      polylineView.addToMap(map);
-      features.add(index, polylineView);
-      Polyline polyline = (Polyline) polylineView.getFeature();
-      polylineMap.put(polyline, polylineView);
-    } else if (child instanceof AirMapPolygon) {
-      AirMapPolygon polygonView = (AirMapPolygon) child;
-      polygonView.addToMap(map);
-      features.add(index, polygonView);
-      Polygon polygon = (Polygon) polygonView.getFeature();
-      polygonMap.put(polygon, polygonView);
-    } else if (child instanceof AirMapCircle) {
-      AirMapCircle circleView = (AirMapCircle) child;
-      circleView.addToMap(map);
-      features.add(index, circleView);
-    } else if (child instanceof AirMapUrlTile) {
-      AirMapUrlTile urlTileView = (AirMapUrlTile) child;
-      urlTileView.addToMap(map);
-      features.add(index, urlTileView);
-    } else {
-      ViewGroup children = (ViewGroup) child;
-      for (int i = 0; i < children.getChildCount(); i++) {
-        addFeature(children.getChildAt(i), index);
-      }
+    public void addFeature(View child, int index) {
+        // Our desired API is to pass up annotations/overlays as children to the mapview component.
+        // This is where we intercept them and do the appropriate underlying mapview action.
+        if (child instanceof AirMapMarker) {
+            AirMapMarker annotation = (AirMapMarker) child;
+            annotation.addToMap(map);
+            features.add(index, annotation);
+            Marker marker = (Marker) annotation.getFeature();
+            markerMap.put(marker, annotation);
+        } else if (child instanceof AirMapPolyline) {
+            AirMapPolyline polylineView = (AirMapPolyline) child;
+            polylineView.addToMap(map);
+            features.add(index, polylineView);
+            Polyline polyline = (Polyline) polylineView.getFeature();
+            polylineMap.put(polyline, polylineView);
+        } else if (child instanceof AirMapPolygon) {
+            AirMapPolygon polygonView = (AirMapPolygon) child;
+            polygonView.addToMap(map);
+            features.add(index, polygonView);
+            Polygon polygon = (Polygon) polygonView.getFeature();
+            polygonMap.put(polygon, polygonView);
+        } else if (child instanceof AirMapCircle) {
+            AirMapCircle circleView = (AirMapCircle) child;
+            circleView.addToMap(map);
+            features.add(index, circleView);
+        } else if (child instanceof AirMapUrlTile) {
+            AirMapUrlTile urlTileView = (AirMapUrlTile) child;
+            urlTileView.addToMap(map);
+            features.add(index, urlTileView);
+        } else if (child instanceof AirMapHeatmap) {
+            AirMapHeatmap heatmapView = (AirMapHeatmap) child;
+            heatmapView.addToMap(map);
+            features.add(index, heatmapView);
+            TileOverlay heatmap = (TileOverlay)heatmapView.getFeature();
+            heatmapMap.put(heatmap, heatmapView);
+        } else {
+            ViewGroup children = (ViewGroup) child;
+            for (int i = 0; i < children.getChildCount(); i++) {
+              addFeature(children.getChildAt(i), index);
+            }
+        }
     }
-  }
 
   public int getFeatureCount() {
     return features.size();
