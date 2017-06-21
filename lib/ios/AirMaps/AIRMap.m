@@ -15,6 +15,7 @@
 #import "AIRMapPolyline.h"
 #import "AIRMapPolygon.h"
 #import "AIRMapCircle.h"
+#import "AIRMapHeatmap.h"
 #import <QuartzCore/QuartzCore.h>
 #import "AIRMapUrlTile.h"
 
@@ -106,6 +107,9 @@ const CGFloat AIRMapZoomBoundBuffer = 0.01;
     } else if ([subview isKindOfClass:[AIRMapUrlTile class]]) {
         ((AIRMapUrlTile *)subview).map = self;
         [self addOverlay:(id<MKOverlay>)subview];
+    } else if ([subview isKindOfClass:[AIRMapHeatmap class]]) {
+        ((AIRMapHeatmap *)subview).map = self;
+        [self addOverlay:(id <MKOverlay>) subview];
     } else {
         NSArray<id<RCTComponent>> *childSubviews = [subview reactSubviews];
         for (int i = 0; i < childSubviews.count; i++) {
@@ -130,6 +134,8 @@ const CGFloat AIRMapZoomBoundBuffer = 0.01;
     } else if ([subview isKindOfClass:[AIRMapCircle class]]) {
         [self removeOverlay:(id <MKOverlay>) subview];
     } else if ([subview isKindOfClass:[AIRMapUrlTile class]]) {
+        [self removeOverlay:(id <MKOverlay>) subview];
+    } else if ([subview isKindOfClass:[AIRMapHeatmap class]]) {
         [self removeOverlay:(id <MKOverlay>) subview];
     } else {
         NSArray<id<RCTComponent>> *childSubviews = [subview reactSubviews];

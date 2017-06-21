@@ -21,6 +21,7 @@
 #import "AIRMapPolyline.h"
 #import "AIRMapPolygon.h"
 #import "AIRMapCircle.h"
+#import "AIRMapHeatmap.h"
 #import "SMCalloutView.h"
 #import "AIRMapUrlTile.h"
 #import "AIRMapSnapshot.h"
@@ -478,6 +479,8 @@ RCT_EXPORT_METHOD(takeSnapshot:(nonnull NSNumber *)reactTag
         return ((AIRMapCircle *)overlay).renderer;
     } else if ([overlay isKindOfClass:[AIRMapUrlTile class]]) {
         return ((AIRMapUrlTile *)overlay).renderer;
+    } else if ([overlay isKindOfClass:[AIRMapHeatmap class]]) {
+        return ((AIRMapHeatmap *)overlay).renderer;
     } else {
         return nil;
     }
