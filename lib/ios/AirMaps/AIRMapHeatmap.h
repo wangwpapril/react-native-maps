@@ -11,7 +11,7 @@
 #import <MapKit/MapKit.h>
 #import <UIKit/UIKit.h>
 
-#import "RCTConvert+MapKit.h"
+#import "RCTConvert+AirMap.h"
 #import "RCTComponent.h"
 #import "AIRMapWeightedPoint.h"
 
