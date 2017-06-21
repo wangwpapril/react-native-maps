@@ -7,6 +7,7 @@
 
 #import <React/RCTConvert+CoreLocation.h>
 #import "AIRMapCoordinate.h"
+#import "AIRMapWeightedPoint.h"
 
 @implementation RCTConvert (AirMap)
 
