@@ -29,25 +29,27 @@ public class MapsPackage implements ReactPackage {
     return Collections.emptyList();
   }
 
-  @Override
-  public List<ViewManager> createViewManagers(ReactApplicationContext reactContext) {
-    AirMapCalloutManager calloutManager = new AirMapCalloutManager();
-    AirMapMarkerManager annotationManager = new AirMapMarkerManager();
-    AirMapPolylineManager polylineManager = new AirMapPolylineManager(reactContext);
-    AirMapPolygonManager polygonManager = new AirMapPolygonManager(reactContext);
-    AirMapCircleManager circleManager = new AirMapCircleManager(reactContext);
-    AirMapManager mapManager = new AirMapManager(reactContext);
-    AirMapLiteManager mapLiteManager = new AirMapLiteManager(reactContext);
-    AirMapUrlTileManager tileManager = new AirMapUrlTileManager(reactContext);
+    @Override
+    public List<ViewManager> createViewManagers(ReactApplicationContext reactContext) {
+        AirMapCalloutManager calloutManager = new AirMapCalloutManager();
+        AirMapMarkerManager annotationManager = new AirMapMarkerManager();
+        AirMapPolylineManager polylineManager = new AirMapPolylineManager(reactContext);
+        AirMapPolygonManager polygonManager = new AirMapPolygonManager(reactContext);
+        AirMapCircleManager circleManager = new AirMapCircleManager(reactContext);
+        AirMapManager mapManager = new AirMapManager(reactContext);
+        AirMapLiteManager mapLiteManager = new AirMapLiteManager(reactContext);
+        AirMapUrlTileManager tileManager = new AirMapUrlTileManager(reactContext);
+        AirMapHeatmapManager heatmapManager = new AirMapHeatmapManager();
 
-    return Arrays.<ViewManager>asList(
-        calloutManager,
-        annotationManager,
-        polylineManager,
-        polygonManager,
-        circleManager,
-        mapManager,
-        mapLiteManager,
-        tileManager);
-  }
+        return Arrays.<ViewManager>asList(
+                calloutManager,
+                annotationManager,
+                polylineManager,
+                polygonManager,
+                circleManager,
+                mapManager,
+                mapLiteManager,
+                tileManager,
+                heatmapManager);
+    }
 }
