@@ -59,6 +59,7 @@ RCT_EXPORT_VIEW_PROPERTY(pitchEnabled, BOOL)
 RCT_EXPORT_VIEW_PROPERTY(showsUserLocation, BOOL)
 RCT_EXPORT_VIEW_PROPERTY(showsMyLocationButton, BOOL)
 RCT_EXPORT_VIEW_PROPERTY(customMapStyleString, NSString)
+RCT_EXPORT_VIEW_PROPERTY(onMapReady, RCTBubblingEventBlock)
 RCT_EXPORT_VIEW_PROPERTY(onPress, RCTBubblingEventBlock)
 RCT_EXPORT_VIEW_PROPERTY(onLongPress, RCTBubblingEventBlock)
 RCT_EXPORT_VIEW_PROPERTY(onChange, RCTBubblingEventBlock)
@@ -66,6 +67,8 @@ RCT_EXPORT_VIEW_PROPERTY(onMarkerPress, RCTDirectEventBlock)
 RCT_EXPORT_VIEW_PROPERTY(onRegionChange, RCTDirectEventBlock)
 RCT_EXPORT_VIEW_PROPERTY(onRegionChangeComplete, RCTDirectEventBlock)
 RCT_EXPORT_VIEW_PROPERTY(mapType, GMSMapViewType)
+RCT_EXPORT_VIEW_PROPERTY(minZoomLevel, CGFloat)
+RCT_EXPORT_VIEW_PROPERTY(maxZoomLevel, CGFloat)
 
 RCT_EXPORT_METHOD(animateToRegion:(nonnull NSNumber *)reactTag
                   withRegion:(MKCoordinateRegion)region
@@ -219,6 +222,11 @@ RCT_EXPORT_METHOD(takeSnapshot:(nonnull NSNumber *)reactTag
   }];
 }
 
+
+- (void)mapViewDidFinishTileRendering:(GMSMapView *)mapView {
+    AIRGoogleMap *googleMapView = (AIRGoogleMap *)mapView;
+    [googleMapView didFinishTileRendering];
+}
 
 - (BOOL)mapView:(GMSMapView *)mapView didTapMarker:(GMSMarker *)marker {
   AIRGoogleMap *googleMapView = (AIRGoogleMap *)mapView;
