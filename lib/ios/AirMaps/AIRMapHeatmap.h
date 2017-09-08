@@ -11,7 +11,7 @@
 #import <MapKit/MapKit.h>
 #import <UIKit/UIKit.h>
 
-#import <React/RCTConvert+AirMap.h>
+#import "RCTConvert+AirMap.h"
 #import <React/RCTComponent.h>
 #import "AIRMapWeightedPoint.h"
 
