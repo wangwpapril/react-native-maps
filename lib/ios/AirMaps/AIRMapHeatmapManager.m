@@ -8,12 +8,12 @@
 
 #import "AIRMapHeatmapManager.h"
 
-#import "RCTBridge.h"
-#import "RCTConvert.h"
-#import "RCTConvert+CoreLocation.h"
-#import "RCTEventDispatcher.h"
-#import "UIView+React.h"
-#import "RCTViewManager.h"
+#import <ReactRCTBridge.h>
+#import <ReactRCTConvert.h>
+#import <ReactRCTConvert+CoreLocation.h>
+#import <ReactRCTEventDispatcher.h>
+#import <ReactUIView+React.h>
+#import <ReactRCTViewManager.h>
 #import "AIRMapHeatmap.h"
 
 @interface AIRMapHeatmapManager()

@@ -11,12 +11,12 @@
 #import <MapKit/MapKit.h>
 #import <UIKit/UIKit.h>
 
-#import "RCTConvert+AirMap.h"
-#import "RCTComponent.h"
+#import <ReactRCTConvert+AirMap.h>
+#import <ReactRCTComponent.h>
 #import "AIRMapWeightedPoint.h"
 
 #import "AIRMap.h"
-#import "RCTView.h"
+#import <ReactRCTView.h>
 
 #import "DTMHeatmap.h"
 #import "DTMHeatmapRenderer.h"

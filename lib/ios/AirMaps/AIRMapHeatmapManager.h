@@ -6,7 +6,7 @@
 //  Copyright © 2017 Christopher. All rights reserved.
 //
 
-#import "RCTViewManager.h"
+#import <React/RCTViewManager.h>
 
 
 @interface AIRMapHeatmapManager : RCTViewManager
