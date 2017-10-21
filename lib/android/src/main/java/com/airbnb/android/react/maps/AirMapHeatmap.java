@@ -9,6 +9,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.TileOverlay;
 import com.google.android.gms.maps.model.TileOverlayOptions;
+import com.google.maps.android.heatmaps.Gradient;
 import com.google.maps.android.heatmaps.HeatmapTileProvider;
 import com.google.maps.android.heatmaps.WeightedLatLng;
 
@@ -20,30 +21,69 @@ public class AirMapHeatmap extends AirMapFeature {
     private TileOverlayOptions tileOverlayOptions;
     private TileOverlay tileOverlay;
     private HeatmapTileProvider heatmapTileProvider;
-    private List<WeightedLatLng> points;
+    private List<WeightedLatLng> points = new ArrayList<>();
+    private int radius;
+    private Gradient gradient;
+    private double opacity;
 
     public AirMapHeatmap(Context context) {
         super(context);
     }
 
+    public void refreshMap() {
+        if (tileOverlay != null) {
+            tileOverlay.clearTileCache();
+            Log.d("aaa", "refreshed map");
+        } else {
+            Log.d("aaa", "cant update because is nyll");
+        }
+    }
+
     public void setPoints(ReadableArray points){
-        this.points = new ArrayList<WeightedLatLng>(points.size());
+        this.points = new ArrayList<>(points.size());
         for (int i = 0; i < points.size(); i++) {
             ReadableMap point = points.getMap(i);
             WeightedLatLng weightedLatLng;
             LatLng latLng = new LatLng(point.getDouble("latitude"), point.getDouble("longitude"));
-            if (point.getDouble("weight") != 0) {
-                weightedLatLng = new WeightedLatLng(latLng, point.getDouble("weight"));
-            } else {
-                weightedLatLng = new WeightedLatLng(latLng);
-            }
+            weightedLatLng = new WeightedLatLng(latLng, point.getDouble("weight"));
             this.points.add(i, weightedLatLng);
         }
-        if (heatmapTileProvider != null && !this.points.isEmpty()) {
+        if (heatmapTileProvider != null) {
             heatmapTileProvider.setWeightedData(this.points);
         }
-        if (tileOverlay != null) {
-            tileOverlay.clearTileCache();
+        refreshMap();
+    }
+
+    public void setRadius(int radius) {
+        this.radius = radius;
+        if (heatmapTileProvider != null) {
+            heatmapTileProvider.setRadius(radius);
+            refreshMap();
+        }
+    }
+
+    public void setGradient(ReadableMap gradient) {
+        ReadableArray rawColors = gradient.getArray("colors");
+        ReadableArray rawValues = gradient.getArray("values");
+        int[] colors = new int[rawColors.size()];
+        float[] values = new float[rawColors.size()];
+        for (int i = 0; i < rawColors.size(); i++) {
+            colors[i] = rawColors.getInt(i);
+            values[i] = ((float) rawValues.getDouble(i));
+        }
+
+        this.gradient = new Gradient(colors, values);
+        if (heatmapTileProvider != null) {
+            heatmapTileProvider.setGradient(this.gradient);
+            refreshMap();
+        }
+    }
+
+    public void setOpacity(double opacity) {
+        this.opacity = opacity;
+        if (heatmapTileProvider != null) {
+            heatmapTileProvider.setOpacity(opacity);
+            refreshMap();
         }
     }
 
@@ -56,19 +96,22 @@ public class AirMapHeatmap extends AirMapFeature {
 
     private TileOverlayOptions createHeatmapOptions() {
         TileOverlayOptions options = new TileOverlayOptions();
-        if (heatmapTileProvider == null && this.points != null && !this.points.isEmpty()) {
-            heatmapTileProvider = new HeatmapTileProvider.Builder().weightedData(this.points).build();
+        if (heatmapTileProvider == null) {
+            heatmapTileProvider = new HeatmapTileProvider.Builder()
+                .weightedData(this.points)
+                .radius(this.radius)
+                .gradient(this.gradient)
+                .opacity(this.opacity)
+                .build();
         }
-        // include other options to the heatmap here, for example radius, colours based on the points!
+
         options.tileProvider(heatmapTileProvider);
         return options;
     }
 
     @Override
     public void addToMap(GoogleMap map) {
-        if(this.points != null && !this.points.isEmpty()){
-            tileOverlay = map.addTileOverlay(getTileOverlayOptions());
-        }
+        tileOverlay = map.addTileOverlay(getTileOverlayOptions());
     }
 
     @Override

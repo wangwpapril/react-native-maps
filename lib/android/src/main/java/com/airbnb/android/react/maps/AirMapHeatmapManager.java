@@ -1,8 +1,7 @@
 package com.airbnb.android.react.maps;
 
-import android.util.Log;
-
 import com.facebook.react.bridge.ReadableArray;
+import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.uimanager.ThemedReactContext;
 import com.facebook.react.uimanager.ViewGroupManager;
 import com.facebook.react.uimanager.annotations.ReactProp;
@@ -21,5 +20,20 @@ public class AirMapHeatmapManager extends ViewGroupManager<AirMapHeatmap> {
     @ReactProp(name = "points")
     public void setPoints(AirMapHeatmap view, ReadableArray points) {
         view.setPoints(points);
+    }
+
+    @ReactProp(name = "radius", defaultInt = 1)
+    public void setRadius(AirMapHeatmap view, int radius) {
+        view.setRadius(radius);
+    }
+
+    @ReactProp(name = "gradient")
+    public void setGradient(AirMapHeatmap view, ReadableMap gradient) {
+        view.setGradient(gradient);
+    }
+
+    @ReactProp(name = "opacity", defaultDouble = 0.7)
+    public void setOpacity(AirMapHeatmap view, double opacity) {
+        view.setOpacity(opacity);
     }
 }
