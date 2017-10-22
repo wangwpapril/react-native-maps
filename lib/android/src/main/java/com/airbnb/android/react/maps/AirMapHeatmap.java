@@ -1,7 +1,7 @@
 package com.airbnb.android.react.maps;
 
 import android.content.Context;
-import android.util.Log;
+import android.graphics.Color;
 
 import com.facebook.react.bridge.ReadableArray;
 import com.facebook.react.bridge.ReadableMap;
@@ -21,7 +21,7 @@ public class AirMapHeatmap extends AirMapFeature {
     private TileOverlayOptions tileOverlayOptions;
     private TileOverlay tileOverlay;
     private HeatmapTileProvider heatmapTileProvider;
-    private List<WeightedLatLng> points = new ArrayList<>();
+    private List<WeightedLatLng> points;
     private int radius;
     private Gradient gradient;
     private double opacity;
@@ -33,9 +33,6 @@ public class AirMapHeatmap extends AirMapFeature {
     public void refreshMap() {
         if (tileOverlay != null) {
             tileOverlay.clearTileCache();
-            Log.d("aaa", "refreshed map");
-        } else {
-            Log.d("aaa", "cant update because is nyll");
         }
     }
 
@@ -56,8 +53,10 @@ public class AirMapHeatmap extends AirMapFeature {
 
     public void setRadius(int radius) {
         this.radius = radius;
+        if(radius > 50) this.radius = 50;
+        if(radius < 10) this.radius = 10;
         if (heatmapTileProvider != null) {
-            heatmapTileProvider.setRadius(radius);
+            heatmapTileProvider.setRadius(this.radius);
             refreshMap();
         }
     }
@@ -68,7 +67,8 @@ public class AirMapHeatmap extends AirMapFeature {
         int[] colors = new int[rawColors.size()];
         float[] values = new float[rawColors.size()];
         for (int i = 0; i < rawColors.size(); i++) {
-            colors[i] = rawColors.getInt(i);
+            String[] colorRgb = rawColors.getString(i).split("\\s*,\\s*");
+            colors[i] = Color.rgb(Integer.parseInt(colorRgb[0]), Integer.parseInt(colorRgb[1]), Integer.parseInt(colorRgb[2]));
             values[i] = ((float) rawValues.getDouble(i));
         }
 
