@@ -67,8 +67,7 @@ public class AirMapHeatmap extends AirMapFeature {
         int[] colors = new int[rawColors.size()];
         float[] values = new float[rawColors.size()];
         for (int i = 0; i < rawColors.size(); i++) {
-            String[] colorRgb = rawColors.getString(i).split("\\s*,\\s*");
-            colors[i] = Color.rgb(Integer.parseInt(colorRgb[0]), Integer.parseInt(colorRgb[1]), Integer.parseInt(colorRgb[2]));
+            colors[i] = Color.parseColor(rawColors.getString(i));
             values[i] = ((float) rawValues.getDouble(i));
         }
 
