@@ -25,6 +25,10 @@ public class AirMapHeatmap extends AirMapFeature {
     private int radius;
     private Gradient gradient;
     private double opacity;
+    private double maxIntensity;
+    private double gradientSmoothing;
+    private float cameraZoom;
+    private LatLng mapCenter;
 
     public AirMapHeatmap(Context context) {
         super(context);
@@ -86,6 +90,17 @@ public class AirMapHeatmap extends AirMapFeature {
         }
     }
 
+    public void setMaxIntensity(double maxIntensity) {
+        this.maxIntensity = maxIntensity;
+        if(heatmapTileProvider != null) {
+            heatmapTileProvider.setMaxIntensity(maxIntensity);
+        }
+    }
+
+    public void setGradientSmoothing(double gradientSmoothing) {
+        this.gradientSmoothing = gradientSmoothing;
+    }
+
     public TileOverlayOptions getTileOverlayOptions() {
         if (tileOverlayOptions == null) {
             tileOverlayOptions = createHeatmapOptions();
@@ -96,11 +111,15 @@ public class AirMapHeatmap extends AirMapFeature {
     private TileOverlayOptions createHeatmapOptions() {
         TileOverlayOptions options = new TileOverlayOptions();
         if (heatmapTileProvider == null) {
+            double metersPerPixel = 156543.03392 * Math.cos(mapCenter.latitude * Math.PI / 180) / Math.pow(2, cameraZoom);
+            int currentRadius = (int)Math.min(this.radius, this.radius / metersPerPixel);
             heatmapTileProvider = new HeatmapTileProvider.Builder()
                 .weightedData(this.points)
-                .radius(this.radius)
+                .radius(currentRadius)
                 .gradient(this.gradient)
                 .opacity(this.opacity)
+                .maxIntensity(this.maxIntensity)
+                .gradientSmoothing(this.gradientSmoothing)
                 .build();
         }
 
@@ -110,6 +129,8 @@ public class AirMapHeatmap extends AirMapFeature {
 
     @Override
     public void addToMap(GoogleMap map) {
+        cameraZoom = map.getCameraPosition().zoom;
+        mapCenter = map.getCameraPosition().target;
         tileOverlay = map.addTileOverlay(getTileOverlayOptions());
     }
 
@@ -124,4 +145,13 @@ public class AirMapHeatmap extends AirMapFeature {
     public Object getFeature() {
         return tileOverlay;
     }
+
+    public HeatmapTileProvider getHeatmapTileProvider() {
+        return heatmapTileProvider;
+    }
+
+    public int getRadius() {
+        return radius;
+    }
+
 }

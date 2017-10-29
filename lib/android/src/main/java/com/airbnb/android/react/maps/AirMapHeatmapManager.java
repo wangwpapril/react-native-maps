@@ -36,4 +36,14 @@ public class AirMapHeatmapManager extends ViewGroupManager<AirMapHeatmap> {
     public void setOpacity(AirMapHeatmap view, double opacity) {
         view.setOpacity(opacity);
     }
+
+    @ReactProp(name = "maxIntensity", defaultDouble = 0)
+    public void setMaxIntensity(AirMapHeatmap view, double maxIntensity) {
+        view.setMaxIntensity(maxIntensity);
+    }
+
+    @ReactProp(name = "gradientSmoothing", defaultDouble = 10)
+    public void setGradientSmoothing(AirMapHeatmap view, double gradientSmoothing) {
+        view.setGradientSmoothing(gradientSmoothing);
+    }
 }

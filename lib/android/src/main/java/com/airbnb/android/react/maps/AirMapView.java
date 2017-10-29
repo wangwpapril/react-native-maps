@@ -504,11 +504,22 @@ public class AirMapView extends MapView implements GoogleMap.InfoWindowAdapter,
             urlTileView.addToMap(map);
             features.add(index, urlTileView);
         } else if (child instanceof AirMapHeatmap) {
-            AirMapHeatmap heatmapView = (AirMapHeatmap) child;
+            final AirMapHeatmap heatmapView = (AirMapHeatmap) child;
             heatmapView.addToMap(map);
             features.add(index, heatmapView);
-            TileOverlay heatmap = (TileOverlay)heatmapView.getFeature();
+            final TileOverlay heatmap = (TileOverlay)heatmapView.getFeature();
             heatmapMap.put(heatmap, heatmapView);
+            final int radius = heatmapView.getRadius();
+            map.setOnCameraMoveListener(new GoogleMap.OnCameraMoveListener() {
+              @Override
+              public void onCameraMove() {
+                LatLng latLng = map.getCameraPosition().target;
+                double metersPerPixel = 156543.03392 * Math.cos(latLng.latitude * Math.PI / 180) / Math.pow(2, map.getCameraPosition().zoom);
+                double result = Math.min(radius / metersPerPixel, radius);
+                heatmapView.getHeatmapTileProvider().setRadius((int) result);
+                heatmap.clearTileCache();
+              }
+            });
         } else {
             ViewGroup children = (ViewGroup) child;
             for (int i = 0; i < children.getChildCount(); i++) {
