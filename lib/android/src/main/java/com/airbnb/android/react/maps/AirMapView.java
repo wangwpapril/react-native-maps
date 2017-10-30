@@ -63,6 +63,7 @@ public class AirMapView extends MapView implements GoogleMap.InfoWindowAdapter,
   private Integer loadingBackgroundColor = null;
   private Integer loadingIndicatorColor = null;
   private final int baseMapPadding = 50;
+  private float lastUpdateZoom;
 
   private LatLngBounds boundsToMove;
   private boolean showUserLocation = false;
@@ -509,15 +510,20 @@ public class AirMapView extends MapView implements GoogleMap.InfoWindowAdapter,
             features.add(index, heatmapView);
             final TileOverlay heatmap = (TileOverlay)heatmapView.getFeature();
             heatmapMap.put(heatmap, heatmapView);
-            final int radius = heatmapView.getRadius();
+            final int desiredRadius = heatmapView.getRadius();
+            lastUpdateZoom = map.getCameraPosition().zoom;
             map.setOnCameraMoveListener(new GoogleMap.OnCameraMoveListener() {
               @Override
               public void onCameraMove() {
-                LatLng latLng = map.getCameraPosition().target;
-                double metersPerPixel = 156543.03392 * Math.cos(latLng.latitude * Math.PI / 180) / Math.pow(2, map.getCameraPosition().zoom);
-                double result = Math.min(radius / metersPerPixel, radius);
-                heatmapView.getHeatmapTileProvider().setRadius((int) result);
-                heatmap.clearTileCache();
+                float currentZoom = map.getCameraPosition().zoom;
+                if(lastUpdateZoom - currentZoom > 0.5) {
+                  lastUpdateZoom = currentZoom;
+                  LatLng latLng = map.getCameraPosition().target;
+                  double metersPerPixel = 156543.03392 * Math.cos(latLng.latitude * Math.PI / 180) / Math.pow(2, map.getCameraPosition().zoom);
+                  double result = Math.min(desiredRadius / metersPerPixel, desiredRadius);
+                  heatmapView.getHeatmapTileProvider().setRadius((int) result);
+                  heatmap.clearTileCache();
+                }
               }
             });
         } else {

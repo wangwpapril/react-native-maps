@@ -29,6 +29,7 @@ public class AirMapHeatmap extends AirMapFeature {
     private double gradientSmoothing;
     private float cameraZoom;
     private LatLng mapCenter;
+    private String heatmapMode;
 
     public AirMapHeatmap(Context context) {
         super(context);
@@ -101,6 +102,10 @@ public class AirMapHeatmap extends AirMapFeature {
         this.gradientSmoothing = gradientSmoothing;
     }
 
+    public void setHeatmapMode(String heatmapMode) {
+        this.heatmapMode = heatmapMode;
+    }
+
     public TileOverlayOptions getTileOverlayOptions() {
         if (tileOverlayOptions == null) {
             tileOverlayOptions = createHeatmapOptions();
@@ -120,6 +125,7 @@ public class AirMapHeatmap extends AirMapFeature {
                 .opacity(this.opacity)
                 .maxIntensity(this.maxIntensity)
                 .gradientSmoothing(this.gradientSmoothing)
+                .setHeatmapMode(this.heatmapMode)
                 .build();
         }
 

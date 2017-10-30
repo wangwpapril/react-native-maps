@@ -46,4 +46,9 @@ public class AirMapHeatmapManager extends ViewGroupManager<AirMapHeatmap> {
     public void setGradientSmoothing(AirMapHeatmap view, double gradientSmoothing) {
         view.setGradientSmoothing(gradientSmoothing);
     }
+
+    @ReactProp(name = "heatmapMode")
+    public void setHeatmapMode(AirMapHeatmap view, String heatmapMode) {
+        view.setHeatmapMode(heatmapMode);
+    }
 }
