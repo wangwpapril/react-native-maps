@@ -517,7 +517,7 @@ public class AirMapView extends MapView implements GoogleMap.InfoWindowAdapter,
               @Override
               public void onCameraMove() {
                 float currentZoom = map.getCameraPosition().zoom;
-                if(lastUpdateZoom - currentZoom > 0.5) {
+                if(Math.abs(lastUpdateZoom - currentZoom) > 0.5) {
                   lastUpdateZoom = currentZoom;
                   LatLng latLng = map.getCameraPosition().target;
                   double metersPerPixel = 156543.03392 * Math.cos(latLng.latitude * Math.PI / 180) / Math.pow(2, map.getCameraPosition().zoom);
