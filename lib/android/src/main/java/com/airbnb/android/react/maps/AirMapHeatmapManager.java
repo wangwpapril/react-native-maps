@@ -22,7 +22,7 @@ public class AirMapHeatmapManager extends ViewGroupManager<AirMapHeatmap> {
         view.setPoints(points);
     }
 
-    @ReactProp(name = "radius", defaultInt = 1)
+    @ReactProp(name = "radius", defaultInt = 10)
     public void setRadius(AirMapHeatmap view, int radius) {
         view.setRadius(radius);
     }

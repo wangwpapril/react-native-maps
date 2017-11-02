@@ -52,6 +52,7 @@ import java.util.List;
 import java.util.Map;
 
 import static android.support.v4.content.PermissionChecker.checkSelfPermission;
+import static com.airbnb.android.react.maps.AirMapHeatmap.MIN_RADIUS;
 
 public class AirMapView extends MapView implements GoogleMap.InfoWindowAdapter,
     GoogleMap.OnMarkerDragListener, OnMapReadyCallback {
@@ -520,7 +521,8 @@ public class AirMapView extends MapView implements GoogleMap.InfoWindowAdapter,
                   lastUpdateZoom = currentZoom;
                   LatLng latLng = map.getCameraPosition().target;
                   double metersPerPixel = 156543.03392 * Math.cos(latLng.latitude * Math.PI / 180) / Math.pow(2, map.getCameraPosition().zoom);
-                  double result = Math.min(desiredRadius / metersPerPixel, desiredRadius);
+                  double recalculatedRadius = Math.max(MIN_RADIUS, desiredRadius / metersPerPixel);
+                  double result = Math.min(recalculatedRadius, desiredRadius);
                   heatmapView.getHeatmapTileProvider().setRadius((int) result);
                   heatmap.clearTileCache();
                 }

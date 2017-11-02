@@ -30,6 +30,7 @@ public class AirMapHeatmap extends AirMapFeature {
     private float cameraZoom;
     private LatLng mapCenter;
     private String heatmapMode;
+    public static final int MIN_RADIUS = 10;
 
     public AirMapHeatmap(Context context) {
         super(context);
@@ -58,7 +59,6 @@ public class AirMapHeatmap extends AirMapFeature {
 
     public void setRadius(int radius) {
         this.radius = radius;
-        if(radius > 50) this.radius = 50;
         if(radius < 10) this.radius = 10;
         if (heatmapTileProvider != null) {
             heatmapTileProvider.setRadius(this.radius);
@@ -117,7 +117,8 @@ public class AirMapHeatmap extends AirMapFeature {
         TileOverlayOptions options = new TileOverlayOptions();
         if (heatmapTileProvider == null) {
             double metersPerPixel = 156543.03392 * Math.cos(mapCenter.latitude * Math.PI / 180) / Math.pow(2, cameraZoom);
-            int currentRadius = (int)Math.min(this.radius, this.radius / metersPerPixel);
+            double recalculatedRadius = Math.max(MIN_RADIUS, this.radius / metersPerPixel);
+            int currentRadius = (int)Math.min(this.radius, recalculatedRadius);
             heatmapTileProvider = new HeatmapTileProvider.Builder()
                 .weightedData(this.points)
                 .radius(currentRadius)
