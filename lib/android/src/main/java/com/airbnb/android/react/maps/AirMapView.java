@@ -519,10 +519,11 @@ public class AirMapView extends MapView implements GoogleMap.InfoWindowAdapter,
                 float currentZoom = map.getCameraPosition().zoom;
                 if(Math.abs(lastUpdateZoom - currentZoom) > 0.5) {
                   lastUpdateZoom = currentZoom;
-                  LatLng latLng = map.getCameraPosition().target;
-                  double metersPerPixel = 156543.03392 * Math.cos(latLng.latitude * Math.PI / 180) / Math.pow(2, map.getCameraPosition().zoom);
-                  double recalculatedRadius = Math.max(MIN_RADIUS, desiredRadius / metersPerPixel);
-                  double result = Math.min(recalculatedRadius, desiredRadius);
+//                  LatLng latLng = map.getCameraPosition().target;
+//                  double metersPerPixel = 156543.03392 * Math.cos(latLng.latitude * Math.PI / 180) / Math.pow(2, map.getCameraPosition().zoom);
+//                  double recalculatedRadius = Math.max(MIN_RADIUS, desiredRadius / metersPerPixel);
+//                  double result = Math.min(recalculatedRadius, desiredRadius);
+                  double result = calculateRadius(currentZoom, desiredRadius);
                   heatmapView.getHeatmapTileProvider().setRadius((int) result);
                   heatmap.clearTileCache();
                 }
@@ -535,6 +536,51 @@ public class AirMapView extends MapView implements GoogleMap.InfoWindowAdapter,
             }
         }
     }
+
+  // spline functions calculated for our specific use case
+  public static double calculateRadius(double z, int desiredRadius) {
+    double result;
+    if(z <= 2) {
+      result = -4.6444 * pow(10, -1) * pow(z, 3) + 1.3933 * pow(z,2) - 9.2889 * pow(10, -1) * z + 10;
+    } else if (z <= 3) {
+      result = 2.3222 * pow(z, 3) - 1.5327 * pow(10,1) * pow(z, 2) + 3.2511 * pow(10, 1) * z - 1.2293 * pow(10,1);
+    } else if(z <= 4) {
+      result = -3.8244 * pow(z, 3) + 3.9993 * pow(10,1) * pow(z, 2) - 1.3345 * pow(10, 2) * z + 1.5367 * pow(10,2);
+    } else if(z <= 5) {
+      result = 7.9755 * pow(z, 3) - 1.0161  * pow(10,2) * pow(z, 2) + 4.3295 * pow(10, 2) * z - 6.0153 * pow(10,2);
+    } else if(z <= 6) {
+      result = -1.3078 *  pow(10, 1) * pow(z, 3) + 2.1419  * pow(10,2) * pow(z, 2) - 1.1460 * pow(10, 3) * z + 2.0301 * pow(10,3);
+    } else if(z <= 7) {
+      result = 9.3345 * pow(z, 3) - 1.8923  * pow(10,2) * pow(z, 2) + 1.2745 * pow(10, 3) * z - 2.8109 * pow(10,3);
+    } else if(z <= 8) {
+      result = -4.2606 * pow(z, 3) + 9.6270  * pow(10,1) * pow(z, 2) - 7.2401 * pow(10, 2) * z + 1.8522 * pow(10,3);
+    } else if(z <= 9) {
+      result = 7.7078 * pow(z, 3) - 1.9097  * pow(10,2) * pow(z, 2) + 1.5739 * pow(10, 3) * z - 4.2756 * pow(10,3);
+    } else if(z <= 10) {
+      result = -6.5706 * pow(z, 3) + 1.9454  * pow(10,2) * pow(z, 2) - 1.8957 * pow(10, 3) * z + 6.1333 * pow(10,3);
+    } else if(z <= 11) {
+      result = -1.4256 * pow(z, 3) + 4.0194  * pow(10,1) * pow(z, 2) - 3.5222 * pow(10, 2) * z + 9.8832 * pow(10,2);
+    } else if(z <= 12) {
+      result = 1.2273 * pow(10, 1) * pow(z, 3) - 4.1185  * pow(10,2) * pow(z, 2) + 4.6203 * pow(10, 3) * z - 1.7244 * pow(10,4);
+    } else if(z <= 13) {
+      result = -1.7666 * pow(10, 1) * pow(z, 3) + 6.6593  * pow(10,2) * pow(z, 2) - 8.3131 * pow(10, 3) * z + 3.4489 * pow(10,4);
+    } else if(z <= 14) {
+      result = 8.3894 * pow(z, 3) - 3.5021 * pow(10,2) * pow(z, 2) + 4.8968 * pow(10, 3) * z - 2.2753 * pow(10,4);
+    } else if(z <= 15) {
+      result = -5.8919 * pow(z, 3) + 2.4960 * pow(10,2) * pow(z, 2) - 3.5006 * pow(10, 3) * z + 1.6435 * pow(10,4);
+    } else if(z <= 16) {
+      result = 5.1784 * pow(z, 3) - 2.4856 * pow(10,2) * pow(z, 2) + 3.9718* pow(10, 3) * z - 2.0928 * pow(10,4);
+    } else {
+      result = desiredRadius;
+    }
+
+    result = Math.min(desiredRadius, result);
+    return Math.max(10, result);
+  }
+
+  private static double pow(double d1, double d2) {
+    return Math.pow(d1, d2);
+  }
 
   public int getFeatureCount() {
     return features.size();

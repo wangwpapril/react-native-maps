@@ -116,9 +116,9 @@ public class AirMapHeatmap extends AirMapFeature {
     private TileOverlayOptions createHeatmapOptions() {
         TileOverlayOptions options = new TileOverlayOptions();
         if (heatmapTileProvider == null) {
-            double metersPerPixel = 156543.03392 * Math.cos(mapCenter.latitude * Math.PI / 180) / Math.pow(2, cameraZoom);
-            double recalculatedRadius = Math.max(MIN_RADIUS, this.radius / metersPerPixel);
-            int currentRadius = (int)Math.min(this.radius, recalculatedRadius);
+//            double metersPerPixel = 156543.03392 * Math.cos(mapCenter.latitude * Math.PI / 180) / Math.pow(2, cameraZoom);
+//            double recalculatedRadius = Math.max(MIN_RADIUS, this.radius / metersPerPixel);
+            int currentRadius = (int)AirMapView.calculateRadius(cameraZoom, radius);
             heatmapTileProvider = new HeatmapTileProvider.Builder()
                 .weightedData(this.points)
                 .radius(currentRadius)
