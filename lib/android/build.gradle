@@ -38,4 +38,5 @@ dependencies {
   compile "com.google.android.gms:play-services-base:10.2.4"
   compile "com.google.android.gms:play-services-maps:10.2.4"
   compile(name: "android-maps-utils", ext:"aar")
+  compile "org.apache.commons:commons-math3:3.6.1"
 }

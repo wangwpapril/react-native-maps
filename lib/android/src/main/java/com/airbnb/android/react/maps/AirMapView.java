@@ -11,6 +11,7 @@ import android.os.Build;
 import android.os.Handler;
 import android.support.v4.view.GestureDetectorCompat;
 import android.support.v4.view.MotionEventCompat;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
@@ -45,6 +46,8 @@ import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.TileOverlay;
 import com.google.android.gms.maps.model.VisibleRegion;
 
+import org.apache.commons.math3.analysis.polynomials.PolynomialSplineFunction;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -78,19 +81,18 @@ public class AirMapView extends MapView implements GoogleMap.InfoWindowAdapter,
   private static final String[] PERMISSIONS = new String[]{
       "android.permission.ACCESS_FINE_LOCATION", "android.permission.ACCESS_COARSE_LOCATION"};
 
-    private final List<AirMapFeature> features = new ArrayList<>();
-    private final Map<Marker, AirMapMarker> markerMap = new HashMap<>();
-    private final Map<Polyline, AirMapPolyline> polylineMap = new HashMap<>();
-    private final Map<Polygon, AirMapPolygon> polygonMap = new HashMap<>();
-    private final Map<TileOverlay, AirMapHeatmap> heatmapMap = new HashMap<>();
-    private final ScaleGestureDetector scaleDetector;
-    private final GestureDetectorCompat gestureDetector;
-    private final AirMapManager manager;
-    private LifecycleEventListener lifecycleListener;
-    private boolean paused = false;
-    private boolean destroyed = false;
-    private final ThemedReactContext context;
-    private final EventDispatcher eventDispatcher;
+  private final List<AirMapFeature> features = new ArrayList<>();
+  private final Map<Marker, AirMapMarker> markerMap = new HashMap<>();
+  private final Map<Polyline, AirMapPolyline> polylineMap = new HashMap<>();
+  private final Map<Polygon, AirMapPolygon> polygonMap = new HashMap<>();
+  private final ScaleGestureDetector scaleDetector;
+  private final GestureDetectorCompat gestureDetector;
+  private final AirMapManager manager;
+  private LifecycleEventListener lifecycleListener;
+  private boolean paused = false;
+  private boolean destroyed = false;
+  private final ThemedReactContext context;
+  private final EventDispatcher eventDispatcher;
 
   private static boolean contextHasBug(Context context) {
     return context == null ||
@@ -476,110 +478,65 @@ public class AirMapView extends MapView implements GoogleMap.InfoWindowAdapter,
     this.handlePanDrag = handlePanDrag;
   }
 
-    public void addFeature(View child, int index) {
-        // Our desired API is to pass up annotations/overlays as children to the mapview component.
-        // This is where we intercept them and do the appropriate underlying mapview action.
-        if (child instanceof AirMapMarker) {
-            AirMapMarker annotation = (AirMapMarker) child;
-            annotation.addToMap(map);
-            features.add(index, annotation);
-            Marker marker = (Marker) annotation.getFeature();
-            markerMap.put(marker, annotation);
-        } else if (child instanceof AirMapPolyline) {
-            AirMapPolyline polylineView = (AirMapPolyline) child;
-            polylineView.addToMap(map);
-            features.add(index, polylineView);
-            Polyline polyline = (Polyline) polylineView.getFeature();
-            polylineMap.put(polyline, polylineView);
-        } else if (child instanceof AirMapPolygon) {
-            AirMapPolygon polygonView = (AirMapPolygon) child;
-            polygonView.addToMap(map);
-            features.add(index, polygonView);
-            Polygon polygon = (Polygon) polygonView.getFeature();
-            polygonMap.put(polygon, polygonView);
-        } else if (child instanceof AirMapCircle) {
-            AirMapCircle circleView = (AirMapCircle) child;
-            circleView.addToMap(map);
-            features.add(index, circleView);
-        } else if (child instanceof AirMapUrlTile) {
-            AirMapUrlTile urlTileView = (AirMapUrlTile) child;
-            urlTileView.addToMap(map);
-            features.add(index, urlTileView);
-        } else if (child instanceof AirMapHeatmap) {
-            final AirMapHeatmap heatmapView = (AirMapHeatmap) child;
-            heatmapView.addToMap(map);
-            features.add(index, heatmapView);
-            final TileOverlay heatmap = (TileOverlay)heatmapView.getFeature();
-            heatmapMap.put(heatmap, heatmapView);
-            final int desiredRadius = heatmapView.getRadius();
-            lastUpdateZoom = map.getCameraPosition().zoom;
-            map.setOnCameraMoveListener(new GoogleMap.OnCameraMoveListener() {
-              @Override
-              public void onCameraMove() {
-                float currentZoom = map.getCameraPosition().zoom;
-                if(Math.abs(lastUpdateZoom - currentZoom) > 0.5) {
-                  lastUpdateZoom = currentZoom;
-//                  LatLng latLng = map.getCameraPosition().target;
-//                  double metersPerPixel = 156543.03392 * Math.cos(latLng.latitude * Math.PI / 180) / Math.pow(2, map.getCameraPosition().zoom);
-//                  double recalculatedRadius = Math.max(MIN_RADIUS, desiredRadius / metersPerPixel);
-//                  double result = Math.min(recalculatedRadius, desiredRadius);
-                  double result = calculateRadius(currentZoom, desiredRadius);
-                  heatmapView.getHeatmapTileProvider().setRadius((int) result);
-                  heatmap.clearTileCache();
-                }
-              }
-            });
-        } else {
-            ViewGroup children = (ViewGroup) child;
-            for (int i = 0; i < children.getChildCount(); i++) {
-              addFeature(children.getChildAt(i), index);
+  public void addFeature(View child, int index) {
+    // Our desired API is to pass up annotations/overlays as children to the mapview component.
+    // This is where we intercept them and do the appropriate underlying mapview action.
+    if (child instanceof AirMapMarker) {
+      AirMapMarker annotation = (AirMapMarker) child;
+      annotation.addToMap(map);
+      features.add(index, annotation);
+      Marker marker = (Marker) annotation.getFeature();
+      markerMap.put(marker, annotation);
+    } else if (child instanceof AirMapPolyline) {
+      AirMapPolyline polylineView = (AirMapPolyline) child;
+      polylineView.addToMap(map);
+      features.add(index, polylineView);
+      Polyline polyline = (Polyline) polylineView.getFeature();
+      polylineMap.put(polyline, polylineView);
+    } else if (child instanceof AirMapPolygon) {
+      AirMapPolygon polygonView = (AirMapPolygon) child;
+      polygonView.addToMap(map);
+      features.add(index, polygonView);
+      Polygon polygon = (Polygon) polygonView.getFeature();
+      polygonMap.put(polygon, polygonView);
+    } else if (child instanceof AirMapCircle) {
+      AirMapCircle circleView = (AirMapCircle) child;
+      circleView.addToMap(map);
+      features.add(index, circleView);
+    } else if (child instanceof AirMapUrlTile) {
+      AirMapUrlTile urlTileView = (AirMapUrlTile) child;
+      urlTileView.addToMap(map);
+      features.add(index, urlTileView);
+    } else if (child instanceof AirMapHeatmap) {
+      final AirMapHeatmap heatmapView = (AirMapHeatmap) child;
+      heatmapView.addToMap(map);
+      features.add(index, heatmapView);
+      final TileOverlay heatmap = (TileOverlay) heatmapView.getFeature();
+
+      // deal with changing radius when camera zoom changes
+      final PolynomialSplineFunction radiusForZoomFunction = heatmapView.getRadiusForZoomFunction();
+      if (radiusForZoomFunction != null) {
+        lastUpdateZoom = map.getCameraPosition().zoom;
+        map.setOnCameraMoveListener(new GoogleMap.OnCameraMoveListener() {
+          @Override
+          public void onCameraMove() {
+            float currentZoom = map.getCameraPosition().zoom;
+            if (Math.abs(lastUpdateZoom - currentZoom) > 0.2) {
+              lastUpdateZoom = currentZoom;
+              double newRadius = radiusForZoomFunction.value(currentZoom);
+              Log.d("MINE", "New radius: " + newRadius + " for zoom: " + currentZoom);
+              heatmapView.getWeightBasedHeatmapTileProvider().setRadius((int) newRadius);
+              heatmap.clearTileCache();
             }
-        }
-    }
-
-  // spline functions calculated for our specific use case
-  public static double calculateRadius(double z, int desiredRadius) {
-    double result;
-    if(z <= 2) {
-      result = -4.6444 * pow(10, -1) * pow(z, 3) + 1.3933 * pow(z,2) - 9.2889 * pow(10, -1) * z + 10;
-    } else if (z <= 3) {
-      result = 2.3222 * pow(z, 3) - 1.5327 * pow(10,1) * pow(z, 2) + 3.2511 * pow(10, 1) * z - 1.2293 * pow(10,1);
-    } else if(z <= 4) {
-      result = -3.8244 * pow(z, 3) + 3.9993 * pow(10,1) * pow(z, 2) - 1.3345 * pow(10, 2) * z + 1.5367 * pow(10,2);
-    } else if(z <= 5) {
-      result = 7.9755 * pow(z, 3) - 1.0161  * pow(10,2) * pow(z, 2) + 4.3295 * pow(10, 2) * z - 6.0153 * pow(10,2);
-    } else if(z <= 6) {
-      result = -1.3078 *  pow(10, 1) * pow(z, 3) + 2.1419  * pow(10,2) * pow(z, 2) - 1.1460 * pow(10, 3) * z + 2.0301 * pow(10,3);
-    } else if(z <= 7) {
-      result = 9.3345 * pow(z, 3) - 1.8923  * pow(10,2) * pow(z, 2) + 1.2745 * pow(10, 3) * z - 2.8109 * pow(10,3);
-    } else if(z <= 8) {
-      result = -4.2606 * pow(z, 3) + 9.6270  * pow(10,1) * pow(z, 2) - 7.2401 * pow(10, 2) * z + 1.8522 * pow(10,3);
-    } else if(z <= 9) {
-      result = 7.7078 * pow(z, 3) - 1.9097  * pow(10,2) * pow(z, 2) + 1.5739 * pow(10, 3) * z - 4.2756 * pow(10,3);
-    } else if(z <= 10) {
-      result = -6.5706 * pow(z, 3) + 1.9454  * pow(10,2) * pow(z, 2) - 1.8957 * pow(10, 3) * z + 6.1333 * pow(10,3);
-    } else if(z <= 11) {
-      result = -1.4256 * pow(z, 3) + 4.0194  * pow(10,1) * pow(z, 2) - 3.5222 * pow(10, 2) * z + 9.8832 * pow(10,2);
-    } else if(z <= 12) {
-      result = 1.2273 * pow(10, 1) * pow(z, 3) - 4.1185  * pow(10,2) * pow(z, 2) + 4.6203 * pow(10, 3) * z - 1.7244 * pow(10,4);
-    } else if(z <= 13) {
-      result = -1.7666 * pow(10, 1) * pow(z, 3) + 6.6593  * pow(10,2) * pow(z, 2) - 8.3131 * pow(10, 3) * z + 3.4489 * pow(10,4);
-    } else if(z <= 14) {
-      result = 8.3894 * pow(z, 3) - 3.5021 * pow(10,2) * pow(z, 2) + 4.8968 * pow(10, 3) * z - 2.2753 * pow(10,4);
-    } else if(z <= 15) {
-      result = -5.8919 * pow(z, 3) + 2.4960 * pow(10,2) * pow(z, 2) - 3.5006 * pow(10, 3) * z + 1.6435 * pow(10,4);
-    } else if(z <= 16) {
-      result = 5.1784 * pow(z, 3) - 2.4856 * pow(10,2) * pow(z, 2) + 3.9718* pow(10, 3) * z - 2.0928 * pow(10,4);
+          }
+        });
+      }
     } else {
-      result = desiredRadius;
+      ViewGroup children = (ViewGroup) child;
+      for (int i = 0; i < children.getChildCount(); i++) {
+        addFeature(children.getChildAt(i), index);
+      }
     }
-
-    result = Math.min(desiredRadius, result);
-    return Math.max(10, result);
-  }
-
-  private static double pow(double d1, double d2) {
-    return Math.pow(d1, d2);
   }
 
   public int getFeatureCount() {
