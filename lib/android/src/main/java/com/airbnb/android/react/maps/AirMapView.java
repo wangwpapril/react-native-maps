@@ -11,7 +11,6 @@ import android.os.Build;
 import android.os.Handler;
 import android.support.v4.view.GestureDetectorCompat;
 import android.support.v4.view.MotionEventCompat;
-import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
@@ -55,7 +54,6 @@ import java.util.List;
 import java.util.Map;
 
 import static android.support.v4.content.PermissionChecker.checkSelfPermission;
-import static com.airbnb.android.react.maps.AirMapHeatmap.MIN_RADIUS;
 
 public class AirMapView extends MapView implements GoogleMap.InfoWindowAdapter,
     GoogleMap.OnMarkerDragListener, OnMapReadyCallback {
@@ -524,7 +522,6 @@ public class AirMapView extends MapView implements GoogleMap.InfoWindowAdapter,
             if (Math.abs(lastUpdateZoom - currentZoom) > 0.2) {
               lastUpdateZoom = currentZoom;
               double newRadius = radiusForZoomFunction.value(currentZoom);
-              Log.d("MINE", "New radius: " + newRadius + " for zoom: " + currentZoom);
               heatmapView.getWeightBasedHeatmapTileProvider().setRadius((int) newRadius);
               heatmap.clearTileCache();
             }
