@@ -68,7 +68,7 @@ public class AirMapHeatmap extends AirMapFeature {
 
   public void setRadius(int radius) {
     this.radius = radius;
-    if (radius < 10) this.radius = 10;
+    if (radius < MIN_RADIUS) this.radius = MIN_RADIUS;
     if (heatmapTileProvider != null) {
       heatmapTileProvider.setRadius(this.radius);
       refreshMap();
