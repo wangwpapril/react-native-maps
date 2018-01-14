@@ -51,4 +51,9 @@ public class AirMapHeatmapManager extends ViewGroupManager<AirMapHeatmap> {
     public void setHeatmapMode(AirMapHeatmap view, String heatmapMode) {
         view.setHeatmapMode(heatmapMode);
     }
+
+    @ReactProp(name = "onZoomRadiusChange")
+    public void onZoomRadiusChange(AirMapHeatmap view, ReadableMap onZoomRadiusChange) {
+        view.setOnZoomRadiusChange(onZoomRadiusChange);
+    }
 }

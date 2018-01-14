@@ -7,34 +7,35 @@
 
 #import <React/RCTConvert+CoreLocation.h>
 #import "AIRMapCoordinate.h"
+#import "AIRMapWeightedPoint.h"
 
 @implementation RCTConvert (AirMap)
 
 + (MKCoordinateSpan)MKCoordinateSpan:(id)json
 {
-    json = [self NSDictionary:json];
-    return (MKCoordinateSpan){
-        [self CLLocationDegrees:json[@"latitudeDelta"]],
-        [self CLLocationDegrees:json[@"longitudeDelta"]]
-    };
+  json = [self NSDictionary:json];
+  return (MKCoordinateSpan){
+    [self CLLocationDegrees:json[@"latitudeDelta"]],
+    [self CLLocationDegrees:json[@"longitudeDelta"]]
+  };
 }
 
 + (MKCoordinateRegion)MKCoordinateRegion:(id)json
 {
-    return (MKCoordinateRegion){
-        [self CLLocationCoordinate2D:json],
-        [self MKCoordinateSpan:json]
-    };
+  return (MKCoordinateRegion){
+    [self CLLocationCoordinate2D:json],
+    [self MKCoordinateSpan:json]
+  };
 }
 
 RCT_ENUM_CONVERTER(MKMapType, (@{
-                                 @"standard": @(MKMapTypeStandard),
-                                 @"satellite": @(MKMapTypeSatellite),
-                                 @"hybrid": @(MKMapTypeHybrid),
-                                 @"satelliteFlyover": @(MKMapTypeSatelliteFlyover),
-                                 @"hybridFlyover": @(MKMapTypeHybridFlyover),
-                                 @"mutedStandard": @(MKMapTypeMutedStandard)
-                                 }), MKMapTypeStandard, integerValue)
+  @"standard": @(MKMapTypeStandard),
+  @"satellite": @(MKMapTypeSatellite),
+  @"hybrid": @(MKMapTypeHybrid),
+  @"satelliteFlyover": @(MKMapTypeSatelliteFlyover),
+  @"hybridFlyover": @(MKMapTypeHybridFlyover),
+  @"mutedStandard": @(MKMapTypeMutedStandard)
+}), MKMapTypeStandard, integerValue)
 
 // NOTE(lmr):
 // This is a bit of a hack, but I'm using this class to simply wrap
@@ -49,6 +50,16 @@ RCT_ENUM_CONVERTER(MKMapType, (@{
 }
 
 RCT_ARRAY_CONVERTER(AIRMapCoordinate)
+
++ (AIRMapWeightedPoint *)AIRMapWeightedPoint:(id)json
+{
+    AIRMapWeightedPoint *point = [AIRMapWeightedPoint new];
+    point.coordinate = [self CLLocationCoordinate2D:json];
+    point.weight     = [self double:json[@"weight"]];
+    return point;
+}
+
+RCT_ARRAY_CONVERTER(AIRMapWeightedPoint)
 
 + (NSArray<NSArray<AIRMapCoordinate *> *> *)AIRMapCoordinateArrayArray:(id)json
 {
