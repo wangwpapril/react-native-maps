@@ -10,7 +10,6 @@
 
 @implementation AIRMapHeatmap
 
-
 - (void) setPoints:(NSArray<AIRMapWeightedPoint *> *)points {
     _points = points;
     

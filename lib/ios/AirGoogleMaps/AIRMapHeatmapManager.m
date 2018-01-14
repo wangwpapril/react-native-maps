@@ -31,5 +31,7 @@ RCT_EXPORT_MODULE()
 }
 
 RCT_EXPORT_VIEW_PROPERTY(points, AIRMapWeightedPointArray)
+RCT_EXPORT_VIEW_PROPERTY(radius, NSInteger)
+
 
 @end
