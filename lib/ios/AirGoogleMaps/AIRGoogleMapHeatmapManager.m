@@ -6,7 +6,7 @@
 //  Copyright © 2017 Christopher. All rights reserved.
 //
 
-#import "AIRMapHeatmapManager.h"
+#import "AIRGoogleMapHeatmapManager.h"
 
 #import <React/RCTBridge.h>
 #import <React/RCTConvert.h>
@@ -14,19 +14,15 @@
 #import <React/RCTEventDispatcher.h>
 #import <React/UIView+React.h>
 #import <React/RCTViewManager.h>
-#import "AIRMapHeatmap.h"
+#import "AIRGoogleMapHeatmap.h"
 
-@interface AIRMapHeatmapManager()
-
-@end
-
-@implementation AIRMapHeatmapManager
+@implementation AIRGoogleMapHeatmapManager
 
 RCT_EXPORT_MODULE()
 
 - (UIView *)view
 {
-    AIRMapHeatmap *heatmap = [AIRMapHeatmap new];
+    AIRGoogleMapHeatmap *heatmap = [AIRGoogleMapHeatmap new];
     return heatmap;
 }
 

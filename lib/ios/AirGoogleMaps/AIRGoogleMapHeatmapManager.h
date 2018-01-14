@@ -9,6 +9,6 @@
 
 #import <React/RCTViewManager.h>
 
-@interface AIRMapHeatmapManager : RCTViewManager
+@interface AIRGoogleMapHeatmapManager : RCTViewManager
 
 @end

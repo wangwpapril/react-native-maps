@@ -6,16 +6,16 @@
 //  Copyright © 2017 Christopher. All rights reserved.
 //
 
-#import "AIRMapHeatmap.h"
+#import "AIRGoogleMapHeatmap.h"
 
-@implementation AIRMapHeatmap
+@implementation AIRGoogleMapHeatmap
 
-- (void) setPoints:(NSArray<AIRMapWeightedPoint *> *)points {
+- (void) setPoints:(NSArray<AIRGoogleMapWeightedPoint *> *)points {
     _points = points;
     
-    self.heatmap = [DTMHeatmap new];
+    //self.heatmap = [DTMHeatmap new];
     [self refreshHeatmapData];
-    self.renderer = [[DTMHeatmapRenderer alloc] initWithOverlay:self.heatmap];
+    //self.renderer = [[DTMHeatmapRenderer alloc] initWithOverlay:self.heatmap];
     [self update];
 }
 
@@ -29,7 +29,7 @@
         data[pointValue] = @(_points[i].weight);
     }
     
-    [self.heatmap setData:data];
+    //[self.heatmap setData:data];
 }
 
 - (void) update
@@ -37,20 +37,20 @@
     if (!_renderer) return;
     
     if (_map == nil) return;
-    [_map removeOverlay:self];
-    [_map addOverlay:self];
+    // [_map removeOverlay:self];
+    // [_map addOverlay:self];
 }
 
 #pragma mark MKOverlay implementation
 
 - (CLLocationCoordinate2D) coordinate
 {
-    return self.heatmap.coordinate;
+    //return self.heatmap.coordinate;
 }
 
 - (MKMapRect) boundingMapRect
 {
-    return self.heatmap.boundingMapRect;
+    //return self.heatmap.boundingMapRect;
 }
 
 - (BOOL)canReplaceMapContent

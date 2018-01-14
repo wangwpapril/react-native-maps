@@ -6,8 +6,8 @@
 //  Copyright © 2017 Christopher. All rights reserved.
 //
 
-#import "AIRMapWeightedPoint.h"
+#import "AIRGoogleMapWeightedPoint.h"
 
-@implementation AIRMapWeightedPoint
+@implementation AIRGoogleMapWeightedPoint
 
 @end
