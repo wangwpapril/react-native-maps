@@ -7,21 +7,15 @@
 //
 
 #import <Foundation/Foundation.h>
-
-#import <MapKit/MapKit.h>
-#import <UIKit/UIKit.h>
-
-#import <React/RCTComponent.h>
-#import "AIRGoogleMapWeightedPoint.h"
-
+#import <GoogleMaps/GoogleMaps.h>
+#import <Google-Maps-iOS-Utils/GMUHeatmaps.h>
 #import "AIRGoogleMap.h"
-#import <React/RCTView.h>
 
-@interface AIRGoogleMapHeatmap: MKAnnotationView <MKOverlay>
+
+@interface AIRGoogleMapHeatmap: UIView
 
 @property (nonatomic, weak) AIRGoogleMap *map;
 
-@property (nonatomic, strong) MKOverlayRenderer *renderer;
 @property (nonatomic, strong) NSArray<AIRGoogleMapWeightedPoint *> *points;
 @property (nonatomic, assign) NSInteger radius;
 @property (nonatomic, assign) NSInteger gradient;

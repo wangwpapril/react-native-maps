@@ -13,7 +13,6 @@
 - (void) setPoints:(NSArray<AIRGoogleMapWeightedPoint *> *)points {
     _points = points;
     
-    //self.heatmap = [DTMHeatmap new];
     [self refreshHeatmapData];
     //self.renderer = [[DTMHeatmapRenderer alloc] initWithOverlay:self.heatmap];
     [self update];

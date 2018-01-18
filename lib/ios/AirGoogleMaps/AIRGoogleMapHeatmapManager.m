@@ -7,14 +7,10 @@
 //
 
 #import "AIRGoogleMapHeatmapManager.h"
-
-#import <React/RCTBridge.h>
-#import <React/RCTConvert.h>
-#import <React/RCTConvert+CoreLocation.h>
-#import <React/RCTEventDispatcher.h>
-#import <React/UIView+React.h>
-#import <React/RCTViewManager.h>
 #import "AIRGoogleMapHeatmap.h"
+#import <MapKit/MapKit.h>
+#import <React/RCTUIManager.h>
+#import "RCTConvert+AirMap.h"
 
 @implementation AIRGoogleMapHeatmapManager
 
