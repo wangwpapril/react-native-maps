@@ -36,6 +36,8 @@ versions you should add `react` as a dependency in your `package.json`.
 
 [`<MapView.Circle />` Component API](docs/circle.md)
 
+[`<MapView.Overlay />` Component API](docs/overlay.md)
+
 ## General Usage
 
 ```js
@@ -151,8 +153,10 @@ render() {
 
 ### Using a custom Tile Overlay
 
+#### Tile Overlay using tile server
+
 ```jsx
-<MapView 
+<MapView
   region={this.state.region}
   onRegionChange={this.onRegionChange}
 >
@@ -171,6 +175,38 @@ For Android: add the following line in your AndroidManifest.xml
 <uses-permission android:name="android.permission.INTERNET" />
 ```
 For IOS: configure [App Transport Security](https://developer.apple.com/library/content/documentation/General/Reference/InfoPlistKeyReference/Articles/CocoaKeys.html#//apple_ref/doc/uid/TP40009251-SW33) in your app
+
+#### Tile Overlay using local tiles
+
+Tiles can be stored locally within device using xyz tiling scheme and displayed as tile overlay as well. This is usefull especially for offline map usage when tiles are available for selected map region within device storage.
+
+```jsx
+<MapView
+  region={this.state.region}
+  onRegionChange={this.onRegionChange}
+>
+  <MapView.LocalTile
+   /**
+    * The path template of the locally stored tiles. The patterns {x} {y} {z} will be replaced at runtime
+    * For example, /storage/emulated/0/mytiles/{z}/{x}/{y}.png
+    */
+   pathTemplate={this.state.pathTemplate}
+   /**
+    * The size of provided local tiles (usually 256 or 512).
+    */
+   tileSize={256}
+  />
+</MapView>
+```
+
+For Android: LocalTile is still just overlay over original map tiles. It means that if device is online, underlying tiles will be still downloaded. If original tiles download/display is not desirable set mapType to 'none'. For example:
+```
+<MapView
+  mapType={Platform.OS == "android" ? "none" : "standard"}
+>
+```
+
+See [OSM Wiki](https://wiki.openstreetmap.org/wiki/Category:Tile_downloading) for how to download tiles for offline usage.
 
 ### Customizing the map style
 
@@ -279,6 +315,14 @@ So far, `<Circle />`, `<Polygon />`, and `<Polyline />` are available to pass in
 `<MapView />` component.
 
 ![](http://i.giphy.com/xT77XZCH8JpEhzVcNG.gif) ![](http://i.giphy.com/xT77XZyA0aYeOX5jsA.gif)
+
+
+
+### Gradient Polylines (iOS MapKit only)
+
+Gradient polylines can be created using the `strokeColors` prop of the `<Polyline>` component.
+
+![](https://i.imgur.com/P7UeqAm.png?1)
 
 
 

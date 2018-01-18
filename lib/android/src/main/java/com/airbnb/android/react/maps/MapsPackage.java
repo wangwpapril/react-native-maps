@@ -29,27 +29,32 @@ public class MapsPackage implements ReactPackage {
     return Collections.emptyList();
   }
 
-    @Override
-    public List<ViewManager> createViewManagers(ReactApplicationContext reactContext) {
-        AirMapCalloutManager calloutManager = new AirMapCalloutManager();
-        AirMapMarkerManager annotationManager = new AirMapMarkerManager();
-        AirMapPolylineManager polylineManager = new AirMapPolylineManager(reactContext);
-        AirMapPolygonManager polygonManager = new AirMapPolygonManager(reactContext);
-        AirMapCircleManager circleManager = new AirMapCircleManager(reactContext);
-        AirMapManager mapManager = new AirMapManager(reactContext);
-        AirMapLiteManager mapLiteManager = new AirMapLiteManager(reactContext);
-        AirMapUrlTileManager tileManager = new AirMapUrlTileManager(reactContext);
-        AirMapHeatmapManager heatmapManager = new AirMapHeatmapManager();
+  @Override
+  public List<ViewManager> createViewManagers(ReactApplicationContext reactContext) {
+    AirMapCalloutManager calloutManager = new AirMapCalloutManager();
+    AirMapMarkerManager annotationManager = new AirMapMarkerManager();
+    AirMapPolylineManager polylineManager = new AirMapPolylineManager(reactContext);
+    AirMapPolygonManager polygonManager = new AirMapPolygonManager(reactContext);
+    AirMapCircleManager circleManager = new AirMapCircleManager(reactContext);
+    AirMapManager mapManager = new AirMapManager(reactContext);
+    AirMapLiteManager mapLiteManager = new AirMapLiteManager(reactContext);
+    AirMapUrlTileManager urlTileManager = new AirMapUrlTileManager(reactContext);
+    AirMapLocalTileManager localTileManager = new AirMapLocalTileManager(reactContext);
+    AirMapOverlayManager overlayManager = new AirMapOverlayManager(reactContext);
+    AirMapHeatmapManager heatmapManager = new AirMapHeatmapManager();
 
-        return Arrays.<ViewManager>asList(
-                calloutManager,
-                annotationManager,
-                polylineManager,
-                polygonManager,
-                circleManager,
-                mapManager,
-                mapLiteManager,
-                tileManager,
-                heatmapManager);
-    }
+    return Arrays.<ViewManager>asList(
+        calloutManager,
+        annotationManager,
+        polylineManager,
+        polygonManager,
+        circleManager,
+        mapManager,
+        mapLiteManager,
+        urlTileManager,
+        localTileManager,
+        overlayManager,
+        heatmapManager
+    );
+  }
 }
