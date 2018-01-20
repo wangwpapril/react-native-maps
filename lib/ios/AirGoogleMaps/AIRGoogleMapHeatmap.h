@@ -8,27 +8,21 @@
 
 #import <Foundation/Foundation.h>
 #import <GoogleMaps/GoogleMaps.h>
-#import <Google-Maps-iOS-Utils/GMUHeatmaps.h>
+#import <Google-Maps-iOS-Utils/GMUWeightHeatmapTileLayer.h>
+#import <Google-Maps-iOS-Utils/GMUGradient.h>
+#import "AIRGoogleMapWeightedPoint.h"
 #import "AIRGoogleMap.h"
-
 
 @interface AIRGoogleMapHeatmap: UIView
 
 @property (nonatomic, weak) AIRGoogleMap *map;
 
 @property (nonatomic, strong) NSArray<AIRGoogleMapWeightedPoint *> *points;
-@property (nonatomic, assign) NSInteger radius;
-@property (nonatomic, assign) NSInteger gradient;
-@property (nonatomic, assign) NSInteger opacity;
-@property (nonatomic, assign) NSInteger maxIntensity;
-@property (nonatomic, assign) NSInteger gradientSmoothing;
-@property (nonatomic, assign) NSInteger heatmapMode;
-@property (nonatomic, assign) NSInteger onZoomRadiusChange;
-
-#pragma mark MKOverlay protocol
-
-@property(nonatomic, readonly) CLLocationCoordinate2D coordinate;
-@property(nonatomic, readonly) MKMapRect boundingMapRect;
-- (BOOL)canReplaceMapContent;
+@property (nonatomic, assign) NSUInteger radius;
+@property (nonatomic, assign) GMUGradient *gradient;
+@property (nonatomic, assign) CGFloat opacity;
+@property (nonatomic, assign) CGFloat maxIntensity;
+@property (nonatomic, assign) CGFloat gradientSmoothing;
+@property (nonatomic, assign) NSString *heatmapMode;
 
 @end

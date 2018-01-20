@@ -7,7 +7,6 @@
 
 #import <React/RCTConvert+CoreLocation.h>
 #import "AIRMapCoordinate.h"
-#import "AIRMapWeightedPoint.h"
 
 @implementation RCTConvert (AirMap)
 
@@ -47,23 +46,6 @@ RCT_ENUM_CONVERTER(MKMapType, (@{
     AIRMapCoordinate *coord = [AIRMapCoordinate new];
     coord.coordinate = [self CLLocationCoordinate2D:json];
     return coord;
-}
-
-RCT_ARRAY_CONVERTER(AIRMapCoordinate)
-
-+ (AIRMapWeightedPoint *)AIRMapWeightedPoint:(id)json
-{
-    AIRMapWeightedPoint *point = [AIRMapWeightedPoint new];
-    point.coordinate = [self CLLocationCoordinate2D:json];
-    point.weight     = [self double:json[@"weight"]];
-    return point;
-}
-
-RCT_ARRAY_CONVERTER(AIRMapWeightedPoint)
-
-+ (NSArray<NSArray<AIRMapCoordinate *> *> *)AIRMapCoordinateArrayArray:(id)json
-{
-    return RCTConvertArrayValue(@selector(AIRMapCoordinateArray:), json);
 }
 
 @end

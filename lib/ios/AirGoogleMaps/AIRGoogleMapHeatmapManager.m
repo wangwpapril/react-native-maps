@@ -18,12 +18,16 @@ RCT_EXPORT_MODULE()
 
 - (UIView *)view
 {
-    AIRGoogleMapHeatmap *heatmap = [AIRGoogleMapHeatmap new];
+    AIRGoogleMapHeatmap *heatmap = [[AIRGoogleMapHeatmap alloc] init];
     return heatmap;
 }
 
 RCT_EXPORT_VIEW_PROPERTY(points, AIRMapWeightedPointArray)
-RCT_EXPORT_VIEW_PROPERTY(radius, NSInteger)
-
+RCT_EXPORT_VIEW_PROPERTY(radius, NSUInteger)
+RCT_EXPORT_VIEW_PROPERTY(gradient, GMUGradient)
+RCT_EXPORT_VIEW_PROPERTY(opacity, CGFloat)
+RCT_EXPORT_VIEW_PROPERTY(maxIntensity, CGFloat)
+RCT_EXPORT_VIEW_PROPERTY(gradientSmoothing, CGFloat)
+RCT_EXPORT_VIEW_PROPERTY(heatmapMode, NSString)
 
 @end
