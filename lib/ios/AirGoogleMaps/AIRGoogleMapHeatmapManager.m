@@ -1,16 +1,6 @@
-//
-//  AIRMapHeatmapManager.m
-//  AirMaps
-//
-//  Created by Admin on 21/06/2017.
-//  Copyright © 2017 Christopher. All rights reserved.
-//
-
 #import "AIRGoogleMapHeatmapManager.h"
 #import "AIRGoogleMapHeatmap.h"
-#import <MapKit/MapKit.h>
-#import <React/RCTUIManager.h>
-#import "RCTConvert+AirMap.h"
+#import "RCTConvert+Heatmaps.h"
 
 @implementation AIRGoogleMapHeatmapManager
 
@@ -22,7 +12,7 @@ RCT_EXPORT_MODULE()
     return heatmap;
 }
 
-RCT_EXPORT_VIEW_PROPERTY(points, AIRMapWeightedPointArray)
+RCT_EXPORT_VIEW_PROPERTY(points, GMUWeightedLatLngArray)
 RCT_EXPORT_VIEW_PROPERTY(radius, NSUInteger)
 RCT_EXPORT_VIEW_PROPERTY(gradient, GMUGradient)
 RCT_EXPORT_VIEW_PROPERTY(opacity, CGFloat)
