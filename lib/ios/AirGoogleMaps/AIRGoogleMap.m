@@ -16,6 +16,7 @@
 #import "AIRGoogleMapUrlTile.h"
 #import "AIRGoogleMapWMSTile.h"
 #import "AIRGoogleMapOverlay.h"
+#import "AIRGoogleMapHeatmap.h"
 #import <GoogleMaps/GoogleMaps.h>
 #import <MapKit/MapKit.h>
 #import <React/UIView+React.h>
@@ -79,6 +80,7 @@ id regionAsJSON(MKCoordinateRegion region) {
     _overlays = [NSMutableArray array];
     _initialCamera = nil;
     _cameraProp = nil;
+    _heatmaps = [NSMutableArray array];
     _initialRegion = MKCoordinateRegionMake(CLLocationCoordinate2DMake(0.0, 0.0), MKCoordinateSpanMake(0.0, 0.0));
     _region = MKCoordinateRegionMake(CLLocationCoordinate2DMake(0.0, 0.0), MKCoordinateSpanMake(0.0, 0.0));
     _initialCameraSetOnLoad = false;
@@ -152,6 +154,10 @@ id regionAsJSON(MKCoordinateRegion region) {
     AIRGoogleMapOverlay *overlay = (AIRGoogleMapOverlay*)subview;
     overlay.overlay.map = self;
     [self.overlays addObject:overlay];
+  } else if ([subview isKindOfClass:[AIRGoogleMapHeatmap class]]) {
+    AIRGoogleMapHeatmap *heatmap = (AIRGoogleMapHeatmap*)subview;
+    heatmap.map = self;
+    [self.heatmaps addObject:heatmap];
   } else {
     NSArray<id<RCTComponent>> *childSubviews = [subview reactSubviews];
     for (int i = 0; i < childSubviews.count; i++) {
@@ -196,6 +202,10 @@ id regionAsJSON(MKCoordinateRegion region) {
     AIRGoogleMapOverlay *overlay = (AIRGoogleMapOverlay*)subview;
     overlay.overlay.map = nil;
     [self.overlays removeObject:overlay];
+  } else if ([subview isKindOfClass:[AIRGoogleMapHeatmap class]]) {
+    AIRGoogleMapHeatmap *heatmap = (AIRGoogleMapHeatmap*)subview;
+    heatmap.map = nil;
+    [self.heatmaps removeObject:heatmap];
   } else {
     NSArray<id<RCTComponent>> *childSubviews = [subview reactSubviews];
     for (int i = 0; i < childSubviews.count; i++) {

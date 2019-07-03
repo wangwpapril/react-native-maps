@@ -49,6 +49,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PointOfInterest;
 import com.google.android.gms.maps.model.Polygon;
 import com.google.android.gms.maps.model.Polyline;
+import com.google.android.gms.maps.model.TileOverlay;
 import com.google.android.gms.maps.model.VisibleRegion;
 import com.google.android.gms.maps.model.IndoorBuilding;
 import com.google.android.gms.maps.model.IndoorLevel;
@@ -61,6 +62,8 @@ import org.xmlpull.v1.XmlPullParserException;
 
 import java.io.IOException;
 import java.io.InputStream;
+import org.apache.commons.math3.analysis.polynomials.PolynomialSplineFunction;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -81,6 +84,7 @@ public class AirMapView extends MapView implements GoogleMap.InfoWindowAdapter,
   private Integer loadingBackgroundColor = null;
   private Integer loadingIndicatorColor = null;
   private final int baseMapPadding = 50;
+  private float lastUpdateZoom;
 
   private LatLngBounds boundsToMove;
   private CameraUpdate cameraToSet;
@@ -621,14 +625,37 @@ public class AirMapView extends MapView implements GoogleMap.InfoWindowAdapter,
       AirMapWMSTile urlTileView = (AirMapWMSTile) child;
       urlTileView.addToMap(map);
       features.add(index, urlTileView);
+    } else if (child instanceof AirMapHeatmap) {
+      final AirMapHeatmap heatmapView = (AirMapHeatmap) child;
+      heatmapView.addToMap(map);
+      features.add(index, heatmapView);
+      final TileOverlay heatmap = (TileOverlay) heatmapView.getFeature();
+
+      // deal with changing radius when camera zoom changes
+      final PolynomialSplineFunction radiusForZoomFunction = heatmapView.getRadiusForZoomFunction();
+      if (radiusForZoomFunction != null) {
+        lastUpdateZoom = map.getCameraPosition().zoom;
+        map.setOnCameraMoveListener(new GoogleMap.OnCameraMoveListener() {
+          @Override
+          public void onCameraMove() {
+            float currentZoom = map.getCameraPosition().zoom;
+            if (Math.abs(lastUpdateZoom - currentZoom) > 0.2) {
+              lastUpdateZoom = currentZoom;
+              double newRadius = radiusForZoomFunction.value(currentZoom);
+              heatmapView.getWeightBasedHeatmapTileProvider().setRadius((int) newRadius);
+              heatmap.clearTileCache();
+            }
+          }
+        });
+      }
     } else if (child instanceof AirMapLocalTile) {
-      AirMapLocalTile localTileView = (AirMapLocalTile) child;
-      localTileView.addToMap(map);
-      features.add(index, localTileView);
+        AirMapLocalTile localTileView = (AirMapLocalTile) child;
+        localTileView.addToMap(map);
+        features.add(index, localTileView);
     } else if (child instanceof AirMapOverlay) {
-      AirMapOverlay overlayView = (AirMapOverlay) child;
-      overlayView.addToMap(map);
-      features.add(index, overlayView);
+        AirMapOverlay overlayView = (AirMapOverlay) child;
+        overlayView.addToMap(map);
+        features.add(index, overlayView);
     } else if (child instanceof ViewGroup) {
       ViewGroup children = (ViewGroup) child;
       for (int i = 0; i < children.getChildCount(); i++) {

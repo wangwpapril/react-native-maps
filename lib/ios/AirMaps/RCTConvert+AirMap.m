@@ -12,19 +12,19 @@
 
 + (MKCoordinateSpan)MKCoordinateSpan:(id)json
 {
-  json = [self NSDictionary:json];
-  return (MKCoordinateSpan){
-    [self CLLocationDegrees:json[@"latitudeDelta"]],
-    [self CLLocationDegrees:json[@"longitudeDelta"]]
-  };
+    json = [self NSDictionary:json];
+    return (MKCoordinateSpan){
+        [self CLLocationDegrees:json[@"latitudeDelta"]],
+        [self CLLocationDegrees:json[@"longitudeDelta"]]
+    };
 }
 
 + (MKCoordinateRegion)MKCoordinateRegion:(id)json
 {
-  return (MKCoordinateRegion){
-    [self CLLocationCoordinate2D:json],
-    [self MKCoordinateSpan:json]
-  };
+    return (MKCoordinateRegion){
+        [self CLLocationCoordinate2D:json],
+        [self MKCoordinateSpan:json]
+    };
 }
 
 + (MKMapCamera*)MKMapCamera:(id)json
@@ -58,13 +58,13 @@
 
 
 RCT_ENUM_CONVERTER(MKMapType, (@{
-  @"standard": @(MKMapTypeStandard),
-  @"satellite": @(MKMapTypeSatellite),
-  @"hybrid": @(MKMapTypeHybrid),
-  @"satelliteFlyover": @(MKMapTypeSatelliteFlyover),
-  @"hybridFlyover": @(MKMapTypeHybridFlyover),
-  @"mutedStandard": @(MKMapTypeMutedStandard)
-}), MKMapTypeStandard, integerValue)
+                                 @"standard": @(MKMapTypeStandard),
+                                 @"satellite": @(MKMapTypeSatellite),
+                                 @"hybrid": @(MKMapTypeHybrid),
+                                 @"satelliteFlyover": @(MKMapTypeSatelliteFlyover),
+                                 @"hybridFlyover": @(MKMapTypeHybridFlyover),
+                                 @"mutedStandard": @(MKMapTypeMutedStandard)
+                                 }), MKMapTypeStandard, integerValue)
 
 // NOTE(lmr):
 // This is a bit of a hack, but I'm using this class to simply wrap
