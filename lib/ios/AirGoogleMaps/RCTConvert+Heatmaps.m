@@ -2,8 +2,8 @@
 #import <GoogleMaps/GoogleMaps.h>
 #import <React/RCTConvert.h>
 #import <React/RCTConvert+CoreLocation.h>
-#import <Google-Maps-iOS-Utils/GMUWeightedLatLng.h>
-#import <Google-Maps-iOS-Utils/GMUGradient.h>
+#import "GMUWeightedLatLng.h"
+#import "GMUGradient.h"
 
 @implementation RCTConvert (Heatmaps)
 

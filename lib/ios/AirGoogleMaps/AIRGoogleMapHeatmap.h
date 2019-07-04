@@ -1,9 +1,9 @@
 #import <Foundation/Foundation.h>
 #import <GoogleMaps/GoogleMaps.h>
-#import <Google-Maps-iOS-Utils/GMUWeightHeatmapTileLayer.h>
-#import <Google-Maps-iOS-Utils/GMUHeatmapTileLayer.h>
-#import <Google-Maps-iOS-Utils/GMUGradient.h>
-#import <Google-Maps-iOS-Utils/GMUWeightedLatLng.h>
+#import "GMUWeightHeatmapTileLayer.h"
+#import "GMUHeatmapTileLayer.h"
+#import "GMUGradient.h"
+#import "GMUWeightedLatLng.h"
 #import "AIRGoogleMap.h"
 
 @interface AIRGoogleMapHeatmap: UIView
