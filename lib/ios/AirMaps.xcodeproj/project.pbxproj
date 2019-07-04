@@ -81,6 +81,8 @@
 		AC5EE5E422CE60A000CC4882 /* GMUHeatmapTileLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = AC5EE5E022CE60A000CC4882 /* GMUHeatmapTileLayer.m */; };
 		AC5EE5ED22CE60BE00CC4882 /* GQTPointQuadTree.m in Sources */ = {isa = PBXBuildFile; fileRef = AC5EE5E622CE60BE00CC4882 /* GQTPointQuadTree.m */; };
 		AC5EE5EE22CE60BE00CC4882 /* GQTPointQuadTreeChild.m in Sources */ = {isa = PBXBuildFile; fileRef = AC5EE5E822CE60BE00CC4882 /* GQTPointQuadTreeChild.m */; };
+		AC5EE61F22CE791D00CC4882 /* GMUStyleMap.m in Sources */ = {isa = PBXBuildFile; fileRef = AC5EE61C22CE791C00CC4882 /* GMUStyleMap.m */; };
+		AC5EE62022CE791D00CC4882 /* GMUPair.m in Sources */ = {isa = PBXBuildFile; fileRef = AC5EE61D22CE791D00CC4882 /* GMUPair.m */; };
 		ACCED66A22CE3B69000541AD /* AIRGoogleMapHeatmapManager.m in Sources */ = {isa = PBXBuildFile; fileRef = ACCED66122CE3B68000541AD /* AIRGoogleMapHeatmapManager.m */; };
 		ACCED66B22CE3B69000541AD /* AIRGoogleMapOverlayManager.m in Sources */ = {isa = PBXBuildFile; fileRef = ACCED66422CE3B68000541AD /* AIRGoogleMapOverlayManager.m */; };
 		ACCED66C22CE3B69000541AD /* AIRGoogleMapHeatmap.m in Sources */ = {isa = PBXBuildFile; fileRef = ACCED66522CE3B68000541AD /* AIRGoogleMapHeatmap.m */; };
@@ -269,6 +271,10 @@
 		AC5EE5EA22CE60BE00CC4882 /* GQTPointQuadTree.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GQTPointQuadTree.h; sourceTree = "<group>"; };
 		AC5EE5EB22CE60BE00CC4882 /* GQTPointQuadTreeChild.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GQTPointQuadTreeChild.h; sourceTree = "<group>"; };
 		AC5EE5EC22CE60BE00CC4882 /* GQTBounds.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GQTBounds.h; sourceTree = "<group>"; };
+		AC5EE61B22CE791C00CC4882 /* GMUPair.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GMUPair.h; sourceTree = "<group>"; };
+		AC5EE61C22CE791C00CC4882 /* GMUStyleMap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GMUStyleMap.m; sourceTree = "<group>"; };
+		AC5EE61D22CE791D00CC4882 /* GMUPair.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GMUPair.m; sourceTree = "<group>"; };
+		AC5EE61E22CE791D00CC4882 /* GMUStyleMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GMUStyleMap.h; sourceTree = "<group>"; };
 		ACCED65E22CE3B67000541AD /* AIRGoogleMapOverlayManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AIRGoogleMapOverlayManager.h; path = AirGoogleMaps/AIRGoogleMapOverlayManager.h; sourceTree = "<group>"; };
 		ACCED65F22CE3B67000541AD /* AIRGoogleMapCalloutSubview.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AIRGoogleMapCalloutSubview.h; path = AirGoogleMaps/AIRGoogleMapCalloutSubview.h; sourceTree = "<group>"; };
 		ACCED66022CE3B68000541AD /* AIRGoogleMapHeatmapManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AIRGoogleMapHeatmapManager.h; path = AirGoogleMaps/AIRGoogleMapHeatmapManager.h; sourceTree = "<group>"; };
@@ -525,6 +531,10 @@
 		AC5EE5B622CE606E00CC4882 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				AC5EE61B22CE791C00CC4882 /* GMUPair.h */,
+				AC5EE61D22CE791D00CC4882 /* GMUPair.m */,
+				AC5EE61E22CE791D00CC4882 /* GMUStyleMap.h */,
+				AC5EE61C22CE791C00CC4882 /* GMUStyleMap.m */,
 				AC5EE5B722CE606E00CC4882 /* GMUGeometryCollection.m */,
 				AC5EE5B822CE606E00CC4882 /* GMUPoint.h */,
 				AC5EE5B922CE606E00CC4882 /* GMUStyle.h */,
@@ -633,6 +643,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AC5EE61F22CE791D00CC4882 /* GMUStyleMap.m in Sources */,
 				AC5EE5AD22CE605600CC4882 /* GMUSimpleClusterAlgorithm.m in Sources */,
 				62AEC4D41FD5A0AA003225E0 /* AIRMapLocalTileOverlay.m in Sources */,
 				ACCED66D22CE3B69000541AD /* AIRGoogleMapCalloutSubviewManager.m in Sources */,
@@ -672,6 +683,7 @@
 				ACCED66C22CE3B69000541AD /* AIRGoogleMapHeatmap.m in Sources */,
 				DA6C263E1C9E324A0035349F /* AIRMapUrlTileManager.m in Sources */,
 				AC5EE5D022CE606E00CC4882 /* GMUPlacemark.m in Sources */,
+				AC5EE62022CE791D00CC4882 /* GMUPair.m in Sources */,
 				AC5EE5D322CE606E00CC4882 /* GMUGroundOverlay.m in Sources */,
 				9B9498DB2017EFB800158761 /* AIRGoogleMapMarker.m in Sources */,
 				AC5EE5B122CE605600CC4882 /* GMUStaticCluster.m in Sources */,
