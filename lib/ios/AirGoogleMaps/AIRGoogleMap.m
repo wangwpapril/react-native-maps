@@ -205,6 +205,7 @@ id regionAsJSON(MKCoordinateRegion region) {
   } else if ([subview isKindOfClass:[AIRGoogleMapHeatmap class]]) {
     AIRGoogleMapHeatmap *heatmap = (AIRGoogleMapHeatmap*)subview;
     heatmap.map = nil;
+    heatmap.densityTileLayer.map = nil;
     [self.heatmaps removeObject:heatmap];
   } else {
     NSArray<id<RCTComponent>> *childSubviews = [subview reactSubviews];
